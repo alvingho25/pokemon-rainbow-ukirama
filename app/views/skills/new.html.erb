@@ -1,0 +1,15 @@
+<% provide(:button, 'Create') %>
+<div class="container-fluid">
+    <h2 class="text-center">New Skill</h2>
+    <div>
+    <ul>
+        <% @skill.errors.full_messages.each do |error| %>
+            <li class="alert alert-danger"><%= error %></li>
+        <% end %>
+        </ul>
+    </div>
+
+    <div class="container">
+        <%= render 'form' %>
+    </div>
+</div>

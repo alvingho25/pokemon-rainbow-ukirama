@@ -53,3 +53,39 @@ Pokedex.create!(name:  "Rattata",
     base_speed: 72,
     element_type: "Normal",
     image_url: "https://img.pokemondb.net/artwork/rattata.jpg")
+
+
+Skill.create!(name: "Tackle",
+    power: 40,
+    max_pp: 100,
+    element_type: "Normal")
+
+Skill.create!(name: "Vine Whip",
+    power: 45,
+    max_pp: 100,
+    element_type: "Grass")
+
+Skill.create!(name: "Ember",
+    power: 40,
+    max_pp: 100,
+    element_type: "Fire")
+
+Skill.create!(name: "Slash",
+    power: 70,
+    max_pp: 100,
+    element_type: "Normal")
+
+Skill.create!(name: "Water Gun",
+    power: 40,
+    max_pp: 100,
+    element_type: "Water")
+
+Skill.create!(name: "Water Pulse",
+    power: 60,
+    max_pp: 100,
+    element_type: "Water")
+
+Skill.create!(name: "Knock Off",
+    power: 65,
+    max_pp: 100,
+    element_type: "Dark")
