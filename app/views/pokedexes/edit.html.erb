@@ -1,14 +1,6 @@
 <% provide(:button, 'Update') %>
+<% provide(:title, 'Update Pokemon') %>
 <div class="container-fluid">
-    <h2 class="text-center">New Pokemon</h2>
-    <div>
-        <ul>
-        <% @pokedex.errors.full_messages.each do |error| %>
-            <li class="alert alert-danger"><%= error %></li>
-        <% end %>
-        </ul>
-    </div>
-
     <div class="container">
         <%= render 'form' %>
     </div>

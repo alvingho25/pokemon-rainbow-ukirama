@@ -28,5 +28,7 @@
             <% end %>
         </tbody>
     </table>
-    <%= will_paginate @pokedexes, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer, class: "float-right" %>
+    <div class="clearfix">
+        <%= will_paginate @pokedexes, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer, class: "float-right" %>
+    </div>
 </div>

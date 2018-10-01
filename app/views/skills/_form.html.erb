@@ -1,3 +1,4 @@
+<%= render 'layouts/error_messages', object: @skill %>
 <%= form_for @skill do |f| %>
     <div class="row">
         <div class="col-3">
@@ -16,7 +17,6 @@
             <%= f.number_field :power, class: 'form-control' %>
         </div>
     </div>
-
     <div class="row">
         <div class="col-3">
             <%= f.label :max_pp, class: "col-form-label" %>
