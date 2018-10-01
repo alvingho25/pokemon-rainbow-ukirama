@@ -4,6 +4,6 @@ class Pokedex < ApplicationRecord
     validates :element_type, inclusion: { in: element,
         message: "%{value} is not a valid type" }
 
-    validates :name, length: { maximum: 45 }, presence: true
+    validates :name, length: { maximum: 45 }, presence: true, uniqueness: true
     # validates :image_url, length: { maximum: 45 }
 end

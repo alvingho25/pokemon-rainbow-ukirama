@@ -1,28 +1,74 @@
-<style>
-    .field_with_errors { display: none; }
-</style>
-<%= form_for @pokedex, html: {class: "form-inline"}  do |f| %>
-    <%= f.label :name, class: 'col-md-3' %>
-    <%= f.text_field :name, class: 'form-control col-md-9' %>
+<%= form_for @pokedex do |f| %>
+    <div class="row">
+        <div class="col-3">
+            <%= f.label :name, class: "col-form-label" %>
+        </div>
+        <div class="col-9">
+            <%= f.text_field :name, class: 'form-control' %>
+        </div>
+    </div>
 
-    <%= f.label :base_health_point, class: 'col-md-3' %>
-    <%= f.number_field :base_health_point, class: 'form-control col-md-9' %>
+    <div class="row">
+        <div class="col-3">
+            <%= f.label :base_health_point, class: "col-form-label" %>
+        </div>
+        <div class="col-9">
+            <%= f.number_field :base_health_point, class: 'form-control' %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3">
+            <%= f.label :base_attack, class: "col-form-label" %>
+        </div>
+        <div class="col-9">
+            <%= f.number_field :base_attack, class: 'form-control' %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3">
+            <%= f.label :base_defence, class: "col-form-label" %>
+        </div>
+        <div class="col-9">
+            <%= f.number_field :base_defence, class: 'form-control' %>
+        </div>
+    </div>
     
-    <%= f.label :base_attack, class: 'col-md-3' %>
-    <%= f.number_field :base_attack, class: 'form-control col-md-9' %>
+    <div class="row">
+        <div class="col-3">
+            <%= f.label :base_speed, class: "col-form-label" %>
+        </div>
+        <div class="col-9">
+            <%= f.number_field :base_speed, class: 'form-control' %>
+        </div>
+    </div>
 
-    <%= f.label :base_defence, class: 'col-md-3' %>
-    <%= f.number_field :base_defence, class: 'form-control col-md-9' %>
-
-    <%= f.label :base_speed, class: 'col-md-3' %>
-    <%= f.number_field :base_speed, class: 'form-control col-md-9' %>
+    <div class="row">
+        <div class="col-3">
+            <%= f.label :element_type, class: "col-form-label" %>
+        </div>
+        <div class="col-9">
+            <%= f.select :element_type, ['Normal', 'Fire', 'Fighting', 'Water', 'Flying', 'Grass', 'Poison', 'Electric', 
+                'Ground', 'Psychic', 'Rock', 'Ice', 'Bug', 'Dragon', 'Ghost', 'Dark', 'Steel', 'Fairy', '???'], {}, class: "form-control" %>
+        </div>
+    </div>
     
-    <%= f.label :element_type, class: 'col-md-3' %>
-    <%= f.text_field :element_type, class: 'form-control col-md-9' %>
+    <div class="row">
+        <div class="col-3">
+            <%= f.label :image_url, class: "col-form-label" %>
+        </div>
+        <div class="col-9">
+            <%= f.url_field :image_url, class: 'form-control' %>
+        </div>
+    </div>
 
-    <%= f.label :image_url, class: 'col-md-3' %>
-    <%= f.url_field :image_url, class: 'form-control col-md-9' %>
-    
-    <%= f.submit "Submit", class: "btn btn-primary btn-block", :style => 'margin-top: 14px' %>
-    <%= link_to "Back", pokedexes_path, class: "btn btn-info btn-block", :style => 'margin-top: 14px' %>
+    <div class="row">
+        <div class="col-8">
+            <%= f.submit "Submit", class: "btn btn-primary btn-block", :style => 'margin-top: 14px' %>
+        </div>
+        <div class="col-4">
+            <%= link_to "Back", pokedexes_path, class: "btn btn-info btn-block", :style => 'margin-top: 14px' %>
+        </div>
+    </div>
 <% end %>
