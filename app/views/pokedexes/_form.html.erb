@@ -1,6 +1,6 @@
 <%= form_for @pokedex do |f| %>
-    <div class="row form-header text-center">
-        <h2><%= yield(:title) %></h2>
+    <div class="row form-header">
+        <h2 class="mx-auto"><%= yield(:title) %></h2>
     </div>
     <%= render 'layouts/error_messages', object: @pokedex %>
     <div class="form-row form-group">
