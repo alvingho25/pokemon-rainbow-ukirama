@@ -29,7 +29,10 @@ class PokemonsController < ApplicationController
     def show
         @pokemon = Pokemon.find(params[:id])
         @current_skill = @pokemon.pokemon_skills.map{ |s| s.skill_id }
-        @skills = Skill.all.select{ |s| !@current_skill.include?(s.id)}.map{|s| [s.name, s.id]}
+        @skills = Skill.all.select{ |s| !@current_skill.include?(s.id) && s.element_type == @pokemon.pokedex.element_type }
+        .map{|s| [s.name, s.id]}
+        # @skills = Skill.all.map { |skill| [skill.name, skill.id]}
+        @pokemon_skill = PokemonSkill.new
     end 
 
     def edit

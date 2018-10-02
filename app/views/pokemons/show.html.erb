@@ -78,7 +78,7 @@
     <div class="clearfix">
         <h2>Pokemon Skills</h2>
     </div>
-
+    <%= render 'layouts/error_messages', object: @pokemon_skill %>
     <table class="table table-bordered" style= "margin-top:10px">
         <thead>
             <tr class="d-flex">
@@ -103,7 +103,7 @@
 </div>
 
 <div class="container">
-    <%= form_for :skill, url: pokemon_pokemon_skills_path(@pokemon) do |f| %>
+    <%= form_for :pokemon_skill, url: pokemon_pokemon_skills_path(@pokemon) do |f| %>
         <div class="form-row form-group">
             <div class="col-2">
                 <%= f.label :skill_id, class: "col-form-label" %>
