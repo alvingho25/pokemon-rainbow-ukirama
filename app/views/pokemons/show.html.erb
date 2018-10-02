@@ -73,3 +73,47 @@
         </div>
     </div>
 </div>
+
+<div class="container-fluid">
+    <div class="clearfix">
+        <h2>Pokemon Skills</h2>
+    </div>
+
+    <table class="table table-bordered" style= "margin-top:10px">
+        <thead>
+            <tr class="d-flex">
+                <th class="col-4 text-center">Name</th>
+                <th class="col-4 text-center">Current PP</th>
+                <th class="col-4 text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @pokemon.pokemon_skills.each do |pokemon_skill| %>
+                <tr class="d-flex">
+                    <td class="col-4 text-center"><%= pokemon_skill.skill.name %></td>
+                    <td class="col-4 text-center"><%= pokemon_skill.current_pp %>/ <%= pokemon_skill.skill.max_pp %></td>
+                    <td class="col-4 text-center">
+                    <%= link_to "Delete", pokemon_pokemon_skill_path(@pokemon, pokemon_skill), method: :delete,
+                                    data: { confirm: "You sure?" }, class: "btn btn-danger"%>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+    <%= form_for :skill, url: pokemon_pokemon_skills_path(@pokemon) do |f| %>
+        <div class="form-row form-group">
+            <div class="col-2">
+                <%= f.label :skill_id, class: "col-form-label" %>
+            </div>
+            <div class="col-8">
+                <%= f.select :skill_id, @skills, {}, class: "form-control" %>
+            </div>
+            <div class="col-2">
+                <%= f.submit "Add Skill", class: "btn btn-primary btn-block" %>
+            </div>
+        </div>
+    <% end %>
+</div>

@@ -30,5 +30,7 @@
             <% end %>
         </tbody>
     </table>
-    <%= will_paginate @skilss, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer, class: "float-right" %>
+    <div class="clearfix">
+        <%= will_paginate @skilss, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer, class: "float-right" %>
+    </div>
 </div>
