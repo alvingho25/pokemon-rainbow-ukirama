@@ -9,6 +9,4 @@ class Pokedex < ApplicationRecord
     validates :base_attack, numericality: { greater_than: 0}
     validates :base_defence, numericality: { greater_than: 0}
     validates :base_speed, numericality: { greater_than: 0}
-
-    # validates :image_url, length: { maximum: 45 }
 end

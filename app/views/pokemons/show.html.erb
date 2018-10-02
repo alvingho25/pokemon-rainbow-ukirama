@@ -109,7 +109,7 @@
                 <%= f.label :skill_id, class: "col-form-label" %>
             </div>
             <div class="col-8">
-                <%= f.select :skill_id, @skills, {}, class: "form-control" %>
+                <%= f.select :skill_id, @skills, {:include_blank => true}, class: "form-control"  %>
             </div>
             <div class="col-2">
                 <%= f.submit "Add Skill", class: "btn btn-primary btn-block" %>

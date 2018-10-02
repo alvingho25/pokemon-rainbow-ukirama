@@ -5,7 +5,7 @@ class PokemonSkill < ApplicationRecord
     validate :same_skill
     validate :same_type
     validate :greater_than_max_pp
-    validate :current_pp, numericality: {greater_than_or_equal_to: 0 }
+    validates :current_pp, numericality: {greater_than_or_equal_to: 0 }
 
     private
     def same_skill
@@ -25,10 +25,14 @@ class PokemonSkill < ApplicationRecord
     end
 
     def greater_than_max_pp
-        @skill = Skill.find(skill_id)
-        @max_pp = @skill.max_pp
-        if current_pp > @max_pp
-            errors.add(:current_pp, " can't be greater than #{@max_pp}")
+        if skill_id.present?
+            @skill = Skill.find(skill_id)
+            @max_pp = @skill.max_pp
+            if current_pp > @max_pp
+                errors.add(:current_pp, " can't be greater than #{@max_pp}")
+            end
+        else
+            errors.add(:base, " Skill required")
         end
     end
 end
