@@ -7,18 +7,20 @@
     <table class="table table-bordered" style= "margin-top:10px">
         <thead>
             <tr class="d-flex">
-                <th class="col-3 text-center">Name</th>
-                <th class="col-3 text-center">Level</th>
-                <th class="col-3 text-center">Health</th>
+                <th class="col-2 text-center">Name</th>
+                <th class="col-3 text-center">Image</th>
+                <th class="col-2 text-center">Level</th>
+                <th class="col-2 text-center">Health</th>
                 <th class="col-3 text-center">Action</th>
             </tr>
         </thead>
         <tbody>
             <% @pokemons.each do |pokemon| %>
                 <tr class="d-flex">
-                    <td class="col-3 text-center"><%= pokemon.name %></td>
-                    <td class="col-3 text-center"><%= pokemon.level %></td>
-                    <td class="col-3 text-center"><%= pokemon.current_health_point %>/<%= pokemon.max_health_point %></td>
+                    <td class="col-2 text-center"><%= pokemon.name %></td>
+                    <td class="col-3 text-center"><%= image_tag pokemon.pokedex.image_url, size: "50x50" %></td>
+                    <td class="col-2 text-center"><%= pokemon.level %></td>
+                    <td class="col-2 text-center"><%= pokemon.current_health_point %>/<%= pokemon.max_health_point %></td>
                     <td class="col-3 text-center">
                     <%= link_to "Show", pokemon_path(pokemon), class: "btn btn-info"%>
                     <%= link_to "Delete", pokemon_path(pokemon), method: :delete,
