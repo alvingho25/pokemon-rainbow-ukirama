@@ -1,46 +1,51 @@
-<%= render 'layouts/error_messages', object: @skill %>
 <%= form_for @skill do |f| %>
-    <div class="row">
-        <div class="col-3">
+    <div class="row form-header text-center">
+        <h2><%= yield(:title) %></h2>
+    </div>
+    <%= render 'layouts/error_messages', object: @skill %>
+
+    <div class="form-row form-group">
+        <div class="col-2">
             <%= f.label :name, class: "col-form-label" %>
         </div>
-        <div class="col-9">
+        <div class="col-10">
             <%= f.text_field :name, class: 'form-control' %>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-3">
+    <div class="form-row form-group">
+        <div class="col-2">
             <%= f.label :power, class: "col-form-label" %>
         </div>
-        <div class="col-9">
+        <div class="col-10">
             <%= f.number_field :power, class: 'form-control' %>
         </div>
     </div>
-    <div class="row">
-        <div class="col-3">
+
+    <div class="form-row form-group">
+        <div class="col-2">
             <%= f.label :max_pp, class: "col-form-label" %>
         </div>
-        <div class="col-9">
+        <div class="col-10">
             <%= f.number_field :max_pp, class: 'form-control' %>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-3">
+    <div class="form-row form-group">
+        <div class="col-2">
             <%= f.label :element_type, class: "col-form-label" %>
         </div>
-        <div class="col-9">
+        <div class="col-10">
             <%= f.select :element_type, ['Normal', 'Fire', 'Fighting', 'Water', 'Flying', 'Grass', 'Poison', 'Electric', 
                 'Ground', 'Psychic', 'Rock', 'Ice', 'Bug', 'Dragon', 'Ghost', 'Dark', 'Steel', 'Fairy', '???'], {}, class: "form-control" %>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-8">
+    <div class="row form-footer">
+        <div class="col-5 offset-2">
             <%= f.submit yield(:button), class: "btn btn-primary btn-block", :style => 'margin-top: 14px' %>
         </div>
-        <div class="col-4">
+        <div class="col-5">
             <%= link_to "Back", skills_path, class: "btn btn-info btn-block", :style => 'margin-top: 14px' %>
         </div>
     </div>

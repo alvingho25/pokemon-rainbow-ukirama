@@ -1,20 +1,58 @@
-<div class="container">
-    <h2 class="text-center"><%= @pokedex.name %></h2>
-    <div class="row">
-        <div class="col-md-4">
+<div class="container container-border">
+    <div class="row" style="padding-top: 10px">
+        <div class="col-md-5">
             <%= image_tag @pokedex.image_url%>
         </div>
-        <div class="col-md-8">
-            <h2>
-            Base Health Point : <%= @pokedex.base_health_point %><br>
-            Base Attack : <%= @pokedex.base_attack %><br>
-            Base Defence : <%= @pokedex.base_defence %><br>
-            Base Speed : <%= @pokedex.base_speed %><br>
-            Element : <%= @pokedex.element_type %>
-            </h2>
-            <%= link_to "Edit Pokemon", edit_pokedex_path(@pokedex), class: "btn btn-primary" %>
-            <%= link_to "Delete Pokemon", pokedex_path(@pokedex), method: :delete, data: { confirm: "You sure?" } , class: "btn btn-danger" %>
-            <%= link_to "Back", pokedexes_path, class: "btn btn-info" %>
+        <div class="col-md-7">
+            <h2 class="text-center"><%= @pokedex.name %></h2>
+            <br><br>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Base Health Point </h3>
+                </div>
+                <div class="col-md-6">
+                    <h3>: <%= @pokedex.base_health_point %></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Base Attack </h3>
+                </div>
+                <div class="col-md-6">
+                    <h3>: <%= @pokedex.base_attack %></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Base Defence </h3>
+                </div>
+                <div class="col-md-6">
+                    <h3>: <%= @pokedex.base_defence %></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Base Speed </h3>
+                </div>
+                <div class="col-md-6">
+                    <h3>: <%= @pokedex.base_speed %></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Element </h3>
+                </div>
+                <div class="col-md-6">
+                    <h3>: <%= @pokedex.element_type %></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7 offset-md-5" style="padding-bottom: 10px">
+            <%= link_to "Edit Pokemon", edit_pokedex_path(@pokedex), class: "btn btn-primary btn-size" %>
+            <%= link_to "Delete Pokemon", pokedex_path(@pokedex), method: :delete, data: { confirm: "You sure?" } , class: "btn btn-danger btn-size" %>
+            <%= link_to "Back", pokedexes_path, class: "btn btn-info btn-size" %>
         </div>
     </div>
 </div>
