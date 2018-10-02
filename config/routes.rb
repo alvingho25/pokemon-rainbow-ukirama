@@ -4,4 +4,5 @@ Rails.application.routes.draw do
 
   resources :pokedexes
   resources :skills
+  resources :pokemons
 end

@@ -1,0 +1,34 @@
+<div class="container container-border">
+    <%= form_for @pokemon do |f| %>
+        <div class="row form-header">
+            <h2 class="mx-auto">New Pokemon</h2>
+        </div>
+        <%= render 'layouts/error_messages', object: @pokemon %>
+        <div class="form-row form-group">
+            <div class="col-2">
+                <%= f.label :name, class: "col-form-label" %>
+            </div>
+            <div class="col-10">
+                <%= f.text_field :name, class: 'form-control' %>
+            </div>
+        </div>
+
+        <div class="form-row form-group">
+            <div class="col-2">
+                <%= f.label :pokedex_id, class: "col-form-label" %>
+            </div>
+            <div class="col-10">
+                <%= f.select :pokedex_id, @pokedexes, {}, class: "form-control" %>
+            </div>
+        </div>
+
+        <div class="row form-footer">
+            <div class="col-5 offset-2">
+                <%= f.submit "Create", class: "btn btn-primary btn-block", :style => 'margin-top: 14px' %>
+            </div>
+            <div class="col-5">
+                <%= link_to "Back", pokedexes_path, class: "btn btn-info btn-block", :style => 'margin-top: 14px' %>
+            </div>
+        </div>
+    <% end %>
+</div>

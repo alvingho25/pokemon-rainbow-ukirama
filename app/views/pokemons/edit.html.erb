@@ -1,0 +1,97 @@
+<div class="container container-border">
+    <%= form_for @pokemon do |f| %>
+        <div class="row form-header">
+            <h2 class="mx-auto">Ipdate Pokemon</h2>
+        </div>
+        <%= render 'layouts/error_messages', object: @pokemon %>
+        <div class="form-row form-group">
+            <div class="col-2">
+                <%= f.label :name, class: "col-form-label" %>
+            </div>
+            <div class="col-10">
+                <%= f.text_field :name, class: 'form-control' %>
+            </div>
+        </div>
+
+        <div class="form-row form-group">
+            <div class="col-2">
+                <%= f.label :max_health_point, class: "col-form-label" %>
+            </div>
+            <div class="col-10">
+                <%= f.text_field :max_health_point, class: 'form-control' %>
+            </div>
+        </div>
+
+        <div class="form-row form-group">
+            <div class="col-2">
+                <%= f.label :current_health_point, class: "col-form-label" %>
+            </div>
+            <div class="col-10">
+                <%= f.text_field :current_health_point, class: 'form-control' %>
+            </div>
+        </div>
+
+        <div class="form-row form-group">
+            <div class="col-2">
+                <%= f.label :attack, class: "col-form-label" %>
+            </div>
+            <div class="col-10">
+                <%= f.text_field :attack, class: 'form-control' %>
+            </div>
+        </div>
+
+        <div class="form-row form-group">
+            <div class="col-2">
+                <%= f.label :defence, class: "col-form-label" %>
+            </div>
+            <div class="col-10">
+                <%= f.text_field :defence, class: 'form-control' %>
+            </div>
+        </div>
+
+        <div class="form-row form-group">
+            <div class="col-2">
+                <%= f.label :speed, class: "col-form-label" %>
+            </div>
+            <div class="col-10">
+                <%= f.text_field :speed, class: 'form-control' %>
+            </div>
+        </div>
+
+        <div class="form-row form-group">
+            <div class="col-2">
+                <%= f.label :level, class: "col-form-label" %>
+            </div>
+            <div class="col-10">
+                <%= f.text_field :level, class: 'form-control', disabled: true %>
+            </div>
+        </div>
+
+        <div class="form-row form-group">
+            <div class="col-2">
+                <%= f.label :current_experience, class: "col-form-label" %>
+            </div>
+            <div class="col-10">
+                <%= f.text_field :current_experience, class: 'form-control', disabled: true %>
+            </div>
+        </div>
+
+        <div class="form-row form-group">
+            <div class="col-2">
+                <%= f.label :pokedex_id, class: "col-form-label" %>
+            </div>
+            <div class="col-10">
+                <%= f.text_field :pokedex_id, class: 'form-control', disabled: true, value: @pokemon.pokedex.name %>
+            </div>
+        </div>
+
+        <div class="row form-footer">
+            <div class="col-5 offset-2">
+                <%= f.submit "Update", class: "btn btn-primary btn-block", :style => 'margin-top: 14px' %>
+            </div>
+            <div class="col-5">
+                <%= link_to "Back", pokemons_path, class: "btn btn-info btn-block", :style => 'margin-top: 14px' %>
+            </div>
+        </div>
+    <% end %>
+</div>

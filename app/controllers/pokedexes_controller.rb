@@ -10,7 +10,7 @@ class PokedexesController < ApplicationController
     def create
         @pokedex = Pokedex.new(pokedex_params)
         if @pokedex.save
-            flash[:success] = "Pokemon #{@pokedex.name} successfully created"
+            flash[:success] = "Pokedex #{@pokedex.name} successfully created"
             redirect_to pokedex_path(@pokedex)
         else
             render :new
