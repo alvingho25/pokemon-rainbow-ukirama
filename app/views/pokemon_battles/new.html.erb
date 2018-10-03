@@ -3,7 +3,7 @@
         <div class="row form-header">
             <h2 class="mx-auto">Select Pokemon</h2>
         </div>
-        
+        <%= render 'layouts/error_messages', object: @pokemon_battle %>
         <div class="form-row form-group">
             <div class="col-6 text-center">
                 <%= f.label :pokemon1_id, class: "col-form-label" %>
