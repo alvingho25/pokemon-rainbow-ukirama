@@ -1,4 +1,5 @@
 class PokemonBattlesController < ApplicationController
+    include PokemonBattleCalculator
     def index
         @pokemon_battles = PokemonBattle.paginate(page: params[:page], :per_page => 5)
     end
