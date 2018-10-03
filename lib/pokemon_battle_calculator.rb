@@ -158,41 +158,19 @@ module PokemonBattleCalculator
         }
     }
 
-    require 'bigdecimal'
     def self.calculate_damage(attacker, defender, skill_id)
         skill = Skill.find(skill_id)
         randomnumber = rand(85..100)
-        puts "Random Number #{randomnumber}"
-        stab = calculate_stab(attacker, skill)
-        puts "Stab #{stab}"
-        resistance = calculate_weakness(defender, skill)
-        puts "Resistance #{resistance}"
-        puts "Attacker Level #{attacker.level}"
-        puts "Attacker attack #{attacker.attack}"
-        puts "Skill Power #{skill.power}"
-        puts "Defender Defence #{defender.defence}"
-        damage = ((((2 * attacker.level.to_f / 5 + 2) * attacker.attack * skill.power / defender.defence) / 50) + 2) * stab * resistance * (randomnumber.to_f / 100)
-        puts "Damage Output #{damage}"
-        damage.to_i
-    end
-
-    def self.calculate_stab(attacker, skill)
         if attacker.pokedex.element_type == skill.element_type
             stab = 1.5
         else
             stab = 1.0
         end
-        stab
-    end
-    
-    def self.calculate_weakness(defender, skill)
-        elements = skill.element_type
-        elementd = defender.pokedex.element_type
-        if TABLE_RESISTANCE[elements.to_sym][elementd.to_sym].present?
-            resistance = TABLE_RESISTANCE[elements.to_sym][elementd.to_sym]
-        else
+        resistance = TABLE_RESISTANCE[skill.element_type.to_sym][defender.pokedex.element_type.to_sym]
+        if !resistance.present?
             resistance = 1
         end
-        resistance
+        damage = ((((2 * attacker.level.to_f / 5 + 2) * attacker.attack * skill.power / defender.defence) / 50) + 2) * stab * resistance * (randomnumber.to_f / 100)
+        damage.round
     end
 end
