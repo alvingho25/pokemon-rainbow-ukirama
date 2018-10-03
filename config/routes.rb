@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   resources :pokemons do
     resources :pokemon_skills, only: [:create, :destroy]
   end
+  resources :pokemon_battles
 end

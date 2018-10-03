@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <div class="clearfix">
+        <h2>Pokemon Battle</h2>
+        <%= link_to "New Battle", new_pokemon_battle_path, class: "btn btn-primary float-right"%>
+    </div>
+
+    <table class="table table-bordered" style= "margin-top:10px">
+        <thead>
+            <tr class="d-flex">
+                <th class="col-2 text-center">Pokemon 1</th>
+                <th class="col-2 text-center">Pokemon 2</th>
+                <th class="col-2 text-center">Turn</th>
+                <th class="col-2 text-center">Status</th>
+                <th class="col-4 text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @pokemon_battles.each do |pokemon_battle| %>
+                <tr class="d-flex">
+                    <td class="col-2 text-center"><%= pokemon_battle.pokemon1.name %></td>
+                    <td class="col-2 text-center"><%= pokemon_battle.pokemon2.name %></td>
+                    <td class="col-2 text-center"><%= pokemon_battle.current_turn %></td>
+                    <td class="col-2 text-center"><%= pokemon_battle.state %></td>
+                    <td class="col-4 text-center">
+                    <%= link_to "Show", pokemon_battle_path(pokemon_battle), class: "btn btn-info"%>
+                    <%= link_to "Delete", pokemon_battle_path(pokemon_battle), method: :delete,
+                                    data: { confirm: "You sure?" }, class: "btn btn-danger"%>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+    <div class="clearfix">
+        <%= will_paginate @pokemons, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer, class: "float-right" %>
+    </div>
+</div>

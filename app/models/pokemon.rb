@@ -3,6 +3,8 @@ class Pokemon < ApplicationRecord
     has_many :pokemon_skills, foreign_key: "pokemon_id", dependent: :destroy
     has_many :skill, through: :pokemon_skills
 
+    has_many :pokemon_battles
+
     validates :name, length: { maximum: 45 }, presence: true, uniqueness: true
     validates :max_health_point, numericality: {greater_than: 0 }
     validates :current_health_point, numericality: { greater_than_or_equal_to: 0 }

@@ -1,0 +1,29 @@
+<div class="container container-border">
+    <%= form_for @pokemon_battle do |f| %>
+        <div class="row form-header">
+            <h2 class="mx-auto">Select Pokemon</h2>
+        </div>
+        
+        <div class="form-row form-group">
+            <div class="col-6 text-center">
+                <%= f.label :pokemon1_id, class: "col-form-label" %>
+            </div>
+            <div class="col-6 text-center">
+                <%= f.label :pokemon2_id, class: "col-form-label" %>
+            </div>
+        </div>
+
+        <div class="form-row form-group">
+            <div class="col-6">
+                <%= f.select :pokemon1_id, @pokemons, {}, class: "form-control" %>
+            </div>
+            <div class="col-6">
+                <%= f.select :pokemon2_id, @pokemons, {}, class: "form-control" %>
+            </div>
+        </div>
+
+        <div class="row form-footer">
+            <%= f.submit "Lets Battle!", class: "btn btn-primary btn-block", :style => 'margin-top: 14px' %>
+        </div>
+    <% end %>
+</div>

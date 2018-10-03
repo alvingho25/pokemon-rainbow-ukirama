@@ -14,14 +14,14 @@
             </tr>
         </thead>
         <tbody>
-            <% @pokedexes.each do |pokemon| %>
+            <% @pokedexes.each do |pokedex| %>
                 <tr class="d-flex">
-                    <td class="col-3 text-center"><%= pokemon.name %></td>
-                    <td class="col-3 text-center"><%= pokemon.element_type %></td>
-                    <td class="col-3 text-center"><%= image_tag pokemon.image_url, size: "50x50" %></td>
+                    <td class="col-3 text-center"><%= pokedex.name %></td>
+                    <td class="col-3 text-center"><%= pokedex.element_type %></td>
+                    <td class="col-3 text-center"><%= image_tag pokedex.image_url, size: "50x50" %></td>
                     <td class="col-3 text-center">
-                    <%= link_to "Show", pokedex_path(pokemon), class: "btn btn-info"%>
-                    <%= link_to "Delete", pokedex_path(pokemon), method: :delete,
+                    <%= link_to "Show", pokedex_path(pokedex), class: "btn btn-info"%>
+                    <%= link_to "Delete", pokedex_path(pokedex), method: :delete,
                                     data: { confirm: "You sure?" }, class: "btn btn-danger"%>
                     </td>
                 </tr>

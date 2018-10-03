@@ -1,0 +1,53 @@
+<div class="container container-border">
+    <div class="clearfix">
+        <h2 class="text-center">Pokemon Battle</h2>
+        <%= link_to "Battle List", pokemon_battles_path, class: "btn btn-primary float-right" %>
+    </div>
+    <div class="row" style="margin-top:10px">
+        <div class="col-4">
+            <div class="container">
+                <div class="card">
+                    <%= image_tag @pokemon_battle.pokemon1.pokedex.image_url,size: "150x250", class: "card-img-top" %>
+                    <div class="card-header form-header">
+                        <h5 class="card-title text-center"><%= @pokemon_battle.pokemon1.name%></h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">HP : <%= @pokemon_battle.pokemon1.current_health_point %>/<%= @pokemon_battle.pokemon1_max_health_point %></li>
+                            <li class="list-group-item">Skill : <%= select_tag :skill1, options_for_select(@pokemon_battle.pokemon1.pokemon_skills.map{ |s| [s.skill.name, s.skill_id]}) %></li>
+                        </ul>
+                    </div>
+                    <div class="cord-footer text-center form-footer">
+                        <%= link_to "Attack", pokemon_battle_path(@pokemon_battle), class: 'btn btn-info' %>
+                        <%= link_to "Surrender", pokemon_battle_path(@pokemon_battle), class: 'btn btn-info' %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="d-flex align-items-center h-100">
+                <h2 class="mx-auto">Versus</h2>
+            </div> 
+        </div>
+        <div class="col-4">
+            <div class="container">
+                <div class="card card-height">
+                    <%= image_tag @pokemon_battle.pokemon2.pokedex.image_url,size: "150x250" , class: "card-img-top" %>
+                    <div class="card-header form-header">
+                        <h5 class="card-title text-center"><%= @pokemon_battle.pokemon2.name%></h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">HP : <%= @pokemon_battle.pokemon2.current_health_point %>/<%= @pokemon_battle.pokemon2_max_health_point %></li>
+                            <li class="list-group-item">Skill : <%= select_tag :skill1, options_for_select(@pokemon_battle.pokemon2.pokemon_skills.map{ |s| [s.skill.name, s.skill_id]}) %></li>
+                        </ul>
+                    </div>
+                    <div class="cord-footer text-center form-footer">
+                        <%= link_to "Attack", pokemon_battle_path(@pokemon_battle), class: 'btn btn-info' %>
+                        <%= link_to "Surrender", pokemon_battle_path(@pokemon_battle), class: 'btn btn-info' %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
