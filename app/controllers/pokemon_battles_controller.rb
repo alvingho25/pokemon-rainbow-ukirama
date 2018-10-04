@@ -37,7 +37,6 @@ class PokemonBattlesController < ApplicationController
     end
 
     def update
-        require 'pry'
         @pokemon_battle = PokemonBattle.find(params[:id])
         current_turn = @pokemon_battle.current_turn
         if current_turn % 2 != 0
@@ -61,20 +60,21 @@ class PokemonBattlesController < ApplicationController
                     @defender.current_health_point = 0
                     @pokemon_battle.pokemon_winner_id = @attacker.id
                     @pokemon_battle.pokemon_loser_id = @defender.id
+                    @pokemon_battle.state = 'Finished'
+                else
+                    @pokemon_battle.current_turn = @pokemon_battle.current_turn + 1
                 end
                 @defender.save
-                
-                @pokemon_battle.current_turn = @pokemon_battle.current_turn + 1
                 @pokemon_battle.save!
 
                 @pokemon_skill.current_pp = @pokemon_skill.current_pp - 1
                 @pokemon_skill.save!
-                # binding.pry
                 redirect_to pokemon_battle_path(@pokemon_battle)
             end
         else
             @pokemon_battle.pokemon_winner_id = @defender.id
             @pokemon_battle.pokemon_loser_id = @attacker.id
+            @pokemon_battle.state = 'Finished'
             @pokemon_battle.save!
             redirect_to pokemon_battle_path(@pokemon_battle)
         end
