@@ -40,6 +40,7 @@
                         </div>
                     </div>
                     <div class="text-center form-footer">
+                        <%= f.hidden_field :pokemon_id, value: @pokemon_battle.pokemon1.id %>
                         <% if @pokemon_battle.current_turn % 2 == 0 %>
                             <%= f.submit "Attack", class: "btn btn-primary", disabled: true %>
                             <%= f.submit "Surrender", class: "btn btn-primary", disabled: true %>
@@ -68,6 +69,7 @@
                         <h5 class="card-title text-center"><%= @pokemon_battle.pokemon2.name%></h5>
                     </div>
                     <%= form_for :attack, url: pokemon_battle_path(@pokemon_battle), method: :patch do |f|%>
+                    <%= f.hidden_field :pokemon_id, value: @pokemon_battle.pokemon2.id %>
                     <div class="card-body">
                         <div class="list-group list-group-flush">
                             <div class="list-group-item">
