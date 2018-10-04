@@ -37,9 +37,9 @@ class PokemonBattlesController < ApplicationController
 
     def update
         @pokemon_battle = PokemonBattle.find(params[:id])
-        battle_engine = BattleEngine.new(params[:id].to_i, params[:attack][:pokemon_id].to_i, params[:attack][:skill_id].to_i)
+        battle_engine = BattleEngine.new(battle_id: params[:id].to_i,pokemon_id: params[:attack][:pokemon_id].to_i, skill_id: params[:attack][:skill_id].to_i, action: params[:commit])
         if battle_engine.valid_next_turn?
-            if battle_engine.next_turn!(params[:commit])
+            if battle_engine.next_turn!
                 battle_engine.save!
                 redirect_to pokemon_battle_path(@pokemon_battle)
             else

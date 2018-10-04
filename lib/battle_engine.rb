@@ -1,8 +1,8 @@
 class BattleEngine
-    def initialize(battle_id, pokemon_id, skill_id)
-        @pokemon_battle = PokemonBattle.find(battle_id)
-        @skill_id = skill_id
-        @pokemon_id = pokemon_id
+    def initialize(input)
+        @pokemon_battle = PokemonBattle.find(input[:battle_id])
+        @skill_id = input[:skill_id]
+        @pokemon_id = input[:pokemon_id]
 
         current_turn = @pokemon_battle.current_turn
         if current_turn % 2 != 0
@@ -12,6 +12,7 @@ class BattleEngine
             @attacker = @pokemon_battle.pokemon2
             @defender = @pokemon_battle.pokemon1
         end
+        @action = input[:action]
     end
 
     def valid_next_turn?
@@ -21,8 +22,8 @@ class BattleEngine
         false
     end
 
-    def next_turn!(action)
-        if action == 'Attack'
+    def next_turn!
+        if @action == 'Attack'
             if @attacker.pokemon_skills.find_by(skill_id: @skill_id).nil?
                 return false
             else
