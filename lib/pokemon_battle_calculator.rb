@@ -158,6 +158,8 @@ module PokemonBattleCalculator
         }
     }
 
+    Stats = Struct.new(:health, :attack, :defence, :speed)
+
     def self.calculate_damage(attacker, defender, skill_id)
         skill = Skill.find(skill_id)
         randomnumber = rand(85..100)
@@ -180,20 +182,16 @@ module PokemonBattleCalculator
         exp
     end
 
-    def self.level_up(level, experience)
-        up_level = 0
-        while self.level_up?(level, experience)
-            up_level = up_level + 1
-            level = level + 1
-        end
-        up_level
-    end
-
     def self.level_up?(level, experience)
         max_experience = (2**level)*100
         if experience >= max_experience
             return true
         end
         false
+    end
+
+    def self.calculate_level_up_extra_stats
+        stats = Stats.new(rand(10..20), rand(1..5), rand(1..5), rand(1..5))
+        stats
     end
 end

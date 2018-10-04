@@ -37,8 +37,8 @@ class PokemonBattlesController < ApplicationController
     end
 
     def update
+        require 'pry'
         @pokemon_battle = PokemonBattle.find(params[:id])
-        
         current_turn = @pokemon_battle.current_turn
         if current_turn % 2 != 0
             @attacker = @pokemon_battle.pokemon1
@@ -67,7 +67,15 @@ class PokemonBattlesController < ApplicationController
                         experience = PokemonBattleCalculator.calculate_experience(@defender)
                         @pokemon_battle.experience_gain = experience
                         @attacker.current_experience = @attacker.current_experience + experience
-                        @attacker.level = @attacker.level + PokemonBattleCalculator.level_up(@attacker.level, @attacker.current_experience)
+                        while PokemonBattleCalculator.level_up?(@attacker.level, @attacker.current_experience)
+                            @attacker.level = @attacker.level + 1
+                            
+                            stats = PokemonBattleCalculator.calculate_level_up_extra_stats
+                            @attacker.max_health_point = @attacker.max_health_point + stats.health
+                            @attacker.attack = @attacker.attack + stats.attack
+                            @attacker.defence = @attacker.defence + stats.defence
+                            @attacker.speed = @attacker.speed + stats.speed
+                        end
                     else
                         @pokemon_battle.current_turn = @pokemon_battle.current_turn + 1
                     end
@@ -93,7 +101,15 @@ class PokemonBattlesController < ApplicationController
             experience = PokemonBattleCalculator.calculate_experience(@attacker)
             @pokemon_battle.experience_gain = experience
             @defender.current_experience = @defender.current_experience + experience
-            @defender.level = @defender.level + PokemonBattleCalculator.level_up(@defender.level, @defender.current_experience)
+            while PokemonBattleCalculator.level_up?(@defender.level, @defender.current_experience)
+                @defender.level = @defender.level + 1
+
+                stats = PokemonBattleCalculator.calculate_level_up_extra_stats
+                @defender.max_health_point = @defender.max_health_point + stats.health
+                @defender.attack = @defender.attack + stats.attack
+                @defender.defence = @defender.defence + stats.defence
+                @defender.speed = @defender.speed + stats.speed
+            end
             @defender.save
 
             @pokemon_battle.save!
