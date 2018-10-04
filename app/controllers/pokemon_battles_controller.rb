@@ -38,6 +38,7 @@ class PokemonBattlesController < ApplicationController
 
     def update
         @pokemon_battle = PokemonBattle.find(params[:id])
+        
         current_turn = @pokemon_battle.current_turn
         if current_turn % 2 != 0
             @attacker = @pokemon_battle.pokemon1
@@ -47,38 +48,42 @@ class PokemonBattlesController < ApplicationController
             @defender = @pokemon_battle.pokemon1
         end
         if params[:commit] == 'Attack'
-            @pokemon_skill = @attacker.pokemon_skills.find_by(skill_id: params[:attack][:skill_id])
-            if @pokemon_skill.current_pp == 0
-                flash.now[:danger] = "Skill PP Depleted Please choose another skill"
+            if !params[:attack].nil?
+                @pokemon_skill = @attacker.pokemon_skills.find_by(skill_id: params[:attack][:skill_id])
+                if @pokemon_skill.current_pp == 0
+                    flash.now[:danger] = "Skill PP Depleted Please choose another skill"
+                    @skill1 = @pokemon_battle.pokemon1.pokemon_skills.map{ |s| [s.skill.name, s.skill_id]}
+                    @skill2 = @pokemon_battle.pokemon2.pokemon_skills.map{ |s| [s.skill.name, s.skill_id]}
+                    render 'show'
+                else
+                    damage = PokemonBattleCalculator.calculate_damage(@attacker, @defender, @pokemon_skill.skill_id)
+                    @defender.current_health_point = @defender.current_health_point - damage
+                    if @defender.current_health_point <= 0
+                        @defender.current_health_point = 0
+                        @pokemon_battle.pokemon_winner_id = @attacker.id
+                        @pokemon_battle.pokemon_loser_id = @defender.id
+                        @pokemon_battle.state = 'Finished'
+
+                        experience = PokemonBattleCalculator.calculate_experience(@defender)
+                        @pokemon_battle.experience_gain = experience
+                        @attacker.current_experience = @attacker.current_experience + experience
+                        @attacker.level = @attacker.level + PokemonBattleCalculator.level_up(@attacker.level, @attacker.current_experience)
+                    else
+                        @pokemon_battle.current_turn = @pokemon_battle.current_turn + 1
+                    end
+                    @defender.save
+                    @pokemon_battle.save!
+                    @attacker.save
+
+                    @pokemon_skill.current_pp = @pokemon_skill.current_pp - 1
+                    @pokemon_skill.save!
+                    redirect_to pokemon_battle_path(@pokemon_battle)
+                end
+            else
+                flash.now[:danger] = "Please choose skill"
                 @skill1 = @pokemon_battle.pokemon1.pokemon_skills.map{ |s| [s.skill.name, s.skill_id]}
                 @skill2 = @pokemon_battle.pokemon2.pokemon_skills.map{ |s| [s.skill.name, s.skill_id]}
                 render 'show'
-            else
-                damage = PokemonBattleCalculator.calculate_damage(@attacker, @defender, @pokemon_skill.skill_id)
-                @defender.current_health_point = @defender.current_health_point - damage
-                if @defender.current_health_point <= 0
-                    @defender.current_health_point = 0
-                    @pokemon_battle.pokemon_winner_id = @attacker.id
-                    @pokemon_battle.pokemon_loser_id = @defender.id
-                    @pokemon_battle.state = 'Finished'
-
-                    experience = PokemonBattleCalculator.calculate_experience(@defender)
-                    @pokemon_battle.experience_gain = experience
-                    @attacker.current_experience = @attacker.current_experience + experience
-                    # if PokemonBattleCalculator.level_up?(@attacker.level, @attacker.current_experience)
-                    #     @attacker.level = @attacker.level + 1
-                    # end
-                    @attacker.level = @attacker.level + PokemonBattleCalculator.level_up(@attacker.level, @attacker.current_experience)
-                else
-                    @pokemon_battle.current_turn = @pokemon_battle.current_turn + 1
-                end
-                @defender.save
-                @pokemon_battle.save!
-                @attacker.save
-
-                @pokemon_skill.current_pp = @pokemon_skill.current_pp - 1
-                @pokemon_skill.save!
-                redirect_to pokemon_battle_path(@pokemon_battle)
             end
         else
             @pokemon_battle.pokemon_winner_id = @defender.id
@@ -88,16 +93,12 @@ class PokemonBattlesController < ApplicationController
             experience = PokemonBattleCalculator.calculate_experience(@attacker)
             @pokemon_battle.experience_gain = experience
             @defender.current_experience = @defender.current_experience + experience
-            # if PokemonBattleCalculator.level_up?(@defender.level, @defender.current_experience)
-            #     @defender.level = @defender.level + 1
-            # end
             @defender.level = @defender.level + PokemonBattleCalculator.level_up(@defender.level, @defender.current_experience)
             @defender.save
 
             @pokemon_battle.save!
             redirect_to pokemon_battle_path(@pokemon_battle)
         end
-        
     end
 
     private 
