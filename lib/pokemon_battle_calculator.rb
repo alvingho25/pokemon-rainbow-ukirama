@@ -173,4 +173,10 @@ module PokemonBattleCalculator
         damage = ((((2 * attacker.level.to_f / 5 + 2) * attacker.attack * skill.power / defender.defence) / 50) + 2) * stab * resistance * (randomnumber.to_f / 100)
         damage.round
     end
+
+    def self.calculate_experience(loser)
+        randomnumber = rand(20..150)
+        exp = randomnumber * loser.level
+        exp
+    end
 end
