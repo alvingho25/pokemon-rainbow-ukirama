@@ -4,7 +4,7 @@
         <%= link_to "Battle List", pokemon_battles_path, class: "btn btn-primary float-right" %>
     </div>
     <% if !@pokemon_battle.pokemon_winner_id.nil? %>
-        <h2 class="text-center">Winners : @pokemon_battle.winner.name</h2>
+        <h2 class="text-center">Winners : <%= @pokemon_battle.winner.name %></h2>
     <% end %>
     <div class="row" style="margin-top:10px">
         <div class="col-4">
@@ -14,16 +14,44 @@
                     <div class="card-header form-header">
                         <h5 class="card-title text-center"><%= @pokemon_battle.pokemon1.name%></h5>
                     </div>
+                    <%= form_for :attack, url: pokemon_battle_path(@pokemon_battle), method: :patch do |f|%>
                     <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">HP : <%= @pokemon_battle.pokemon1.current_health_point %>/<%= @pokemon_battle.pokemon1_max_health_point %></li>
-                            <li class="list-group-item">Skill : <%= select_tag :skill1, options_for_select(@pokemon_battle.pokemon1.pokemon_skills.map{ |s| [s.skill.name, s.skill_id]}) %></li>
-                        </ul>
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item">
+                                <div class="row">
+                                    <div class="col-3 text-center">
+                                        HP
+                                    </div>
+                                    <div class="col-9">
+                                        : <%= @pokemon_battle.pokemon1.current_health_point %>/<%= @pokemon_battle.pokemon1_max_health_point %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-item">
+                                <div class="row">
+                                    <div class="col-3 text-center">
+                                        Skill
+                                    </div>
+                                    <div class="col-9">
+                                        <%= f.select :skill_id, @skill1, {}, class: "form-control" %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="cord-footer text-center form-footer">
-                        <%= link_to "Attack", pokemon_battle_path(@pokemon_battle), class: 'btn btn-info' %>
-                        <%= link_to "Surrender", pokemon_battle_path(@pokemon_battle), class: 'btn btn-info' %>
+                    <div class="text-center form-footer">
+                        <% if @pokemon_battle.current_turn % 2 == 0 %>
+                            <%= f.submit "Attack", class: "btn btn-primary", disabled: true %>
+                            <%= f.submit "Surrender", class: "btn btn-primary", disabled: true %>
+                        <% elsif !@pokemon_battle.pokemon_winner_id.nil?%>
+                            <%= f.submit "Attack", class: "btn btn-primary", disabled: true %>
+                            <%= f.submit "Surrender", class: "btn btn-primary", disabled: true %>
+                        <% else %>
+                            <%= f.submit "Attack", class: "btn btn-primary" %>
+                            <%= f.submit "Surrender", class: "btn btn-primary" %>
+                        <% end %>
                     </div>
+                    <% end %>
                 </div>
             </div>
         </div>
@@ -39,16 +67,44 @@
                     <div class="card-header form-header">
                         <h5 class="card-title text-center"><%= @pokemon_battle.pokemon2.name%></h5>
                     </div>
+                    <%= form_for :attack, url: pokemon_battle_path(@pokemon_battle), method: :patch do |f|%>
                     <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">HP : <%= @pokemon_battle.pokemon2.current_health_point %>/<%= @pokemon_battle.pokemon2_max_health_point %></li>
-                            <li class="list-group-item">Skill : <%= select_tag :skill1, options_for_select(@pokemon_battle.pokemon2.pokemon_skills.map{ |s| [s.skill.name, s.skill_id]}) %></li>
-                        </ul>
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item">
+                                <div class="row">
+                                    <div class="col-3 text-center">
+                                        HP
+                                    </div>
+                                    <div class="col-9">
+                                        : <%= @pokemon_battle.pokemon2.current_health_point %>/<%= @pokemon_battle.pokemon2_max_health_point %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-item">
+                                <div class="row">
+                                    <div class="col-3 text-center">
+                                        Skill
+                                    </div>
+                                    <div class="col-9">
+                                        <%= f.select :skill_id, @skill2, {}, class: "form-control" %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="cord-footer text-center form-footer">
-                        <%= link_to "Attack", pokemon_battle_path(@pokemon_battle), class: 'btn btn-info' %>
-                        <%= link_to "Surrender", pokemon_battle_path(@pokemon_battle), class: 'btn btn-info' %>
+                    <div class="text-center form-footer">
+                        <% if @pokemon_battle.current_turn % 2 != 0 %>
+                            <%= f.submit "Attack", class: "btn btn-primary", disabled: true %>
+                            <%= f.submit "Surrender", class: "btn btn-primary", disabled: true %>
+                        <% elsif !@pokemon_battle.pokemon_winner_id.nil?%>
+                            <%= f.submit "Attack", class: "btn btn-primary", disabled: true %>
+                            <%= f.submit "Surrender", class: "btn btn-primary", disabled: true %>
+                        <% else %>
+                            <%= f.submit "Attack", class: "btn btn-primary" %>
+                            <%= f.submit "Surrender", class: "btn btn-primary" %>
+                        <% end %>
                     </div>
+                    <% end %>
                 </div>
             </div>
         </div>

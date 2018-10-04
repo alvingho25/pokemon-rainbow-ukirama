@@ -2,8 +2,8 @@ class PokemonSkill < ApplicationRecord
     belongs_to :skill
     belongs_to :pokemon
 
-    validate :same_skill
-    validate :same_type
+    validate :same_skill, on: :create
+    validate :same_type, on: :create
     validate :greater_than_max_pp
     validates :current_pp, numericality: {greater_than_or_equal_to: 0 }
 

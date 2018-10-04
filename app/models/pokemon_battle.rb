@@ -5,7 +5,7 @@ class PokemonBattle < ApplicationRecord
     belongs_to :loser, class_name: "Pokemon", foreign_key: "pokemon_loser_id", optional: true
 
     validate :same_pokemon
-    validate :pokemon_health
+    validate :pokemon_health, on: :create
 
     private
     def same_pokemon
