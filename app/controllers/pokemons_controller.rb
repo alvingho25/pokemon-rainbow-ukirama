@@ -61,6 +61,6 @@ class PokemonsController < ApplicationController
     end
 
     def edit_params
-        params.require(:pokemon).permit(:name, :pokedex_id, :attack, :defence, :speed, :current_health_point, :max_health_point, :level, :current_experience)
+        params.require(:pokemon).permit(:name, :attack, :defence, :speed, :current_health_point, :max_health_point, :current_experience)
     end
 end

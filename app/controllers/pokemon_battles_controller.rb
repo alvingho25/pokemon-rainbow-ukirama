@@ -61,10 +61,14 @@ class PokemonBattlesController < ApplicationController
                     @pokemon_battle.pokemon_winner_id = @attacker.id
                     @pokemon_battle.pokemon_loser_id = @defender.id
                     @pokemon_battle.state = 'Finished'
-                    
+
                     experience = PokemonBattleCalculator.calculate_experience(@defender)
                     @pokemon_battle.experience_gain = experience
                     @attacker.current_experience = @attacker.current_experience + experience
+                    # if PokemonBattleCalculator.level_up?(@attacker.level, @attacker.current_experience)
+                    #     @attacker.level = @attacker.level + 1
+                    # end
+                    @attacker.level = @attacker.level + PokemonBattleCalculator.level_up(@attacker.level, @attacker.current_experience)
                 else
                     @pokemon_battle.current_turn = @pokemon_battle.current_turn + 1
                 end
@@ -84,6 +88,10 @@ class PokemonBattlesController < ApplicationController
             experience = PokemonBattleCalculator.calculate_experience(@attacker)
             @pokemon_battle.experience_gain = experience
             @defender.current_experience = @defender.current_experience + experience
+            # if PokemonBattleCalculator.level_up?(@defender.level, @defender.current_experience)
+            #     @defender.level = @defender.level + 1
+            # end
+            @defender.level = @defender.level + PokemonBattleCalculator.level_up(@defender.level, @defender.current_experience)
             @defender.save
 
             @pokemon_battle.save!

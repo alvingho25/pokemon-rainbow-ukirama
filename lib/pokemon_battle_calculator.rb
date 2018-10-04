@@ -179,4 +179,15 @@ module PokemonBattleCalculator
         exp = randomnumber * loser.level
         exp
     end
+
+    def self.level_up(level, experience)
+        up_level = 0
+        max_experience = (2**level)*100
+        while experience >= max_experience
+            up_level = up_level + 1
+            level = level + 1
+            max_experience = (2**level)*100
+        end
+        up_level
+    end
 end
