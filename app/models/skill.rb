@@ -2,8 +2,8 @@ class Skill < ApplicationRecord
     has_many :pokemon_skills
     has_many :pokemon, through: :pokemon_skills
 
-    element = ['Normal', 'Fire', 'Fighting', 'Water', 'Flying', 'Grass', 'Poison', 'Electric', 
-        'Ground', 'Psychic', 'Rock', 'Ice', 'Bug', 'Dragon', 'Ghost', 'Dark', 'Steel', 'Fairy']
+    element = ['normal', 'fire', 'fighting', 'water', 'flying', 'grass', 'poison', 'electric', 
+        'ground', 'psychic', 'rock', 'ice', 'bug', 'dragon', 'ghost', 'dark', 'steel', 'fairy']
     validates :element_type, inclusion: { in: element,
     message: "%{value} is not a valid type" }
     validates :name, length: { maximum: 45 }, presence: true, uniqueness: true
