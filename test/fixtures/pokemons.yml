@@ -1,2 +1,10 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# alvin:
+#   pokedex: charmander
+#   name: alvin
+#   level: 1
+#   max_health_point: 45
+#   current_health_point: 45
+#   attack: 49
+#   defence: 49
+#   speed: 45
+#   current_experience: 0

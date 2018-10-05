@@ -1,0 +1,7 @@
+# charmander:
+#   name: charmander
+#   base_health_point: 39
+#   base_attack: 52
+#   base_defence: 43
+#   base_speed: 65
+#   element_type: fire
