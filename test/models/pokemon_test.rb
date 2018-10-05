@@ -194,4 +194,16 @@ class PokemonTest < ActiveSupport::TestCase
     @pokemon.level = 500
     assert @pokemon.valid?, "pokemon level should be valid"
   end
+
+  test "pokemon with no valid pokedex should not be created" do 
+    @pokemon.pokedex_id = 99999
+    assert_not @pokemon.valid?, "pokemon with random pokedex_id should not be created"
+
+    @pokemon.pokedex_id = nil
+    assert_not @pokemon.valid?, "pokemon with no pokedex_id should not be created"
+  end
+
+  test "pokemon with valid pokedex_id should be created" do
+    assert @pokemon.valid?, "pokemon with correct pokedex_id should be created"
+  end
 end

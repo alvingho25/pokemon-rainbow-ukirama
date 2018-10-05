@@ -70,20 +70,44 @@ class PokemonSkillTest < ActiveSupport::TestCase
   end
 
   test "pokemon current pp should not be less than 0" do
-    @pokemon.current_pp = -10
-    assert_not @pokemon.valid?, "pokemon current pp should not be less than 0"
+    @pokemon_skill.current_pp = -10
+    assert_not @pokemon_skill.valid?, "pokemon current pp should not be less than 0"
   end
 
   test "pokemon current pp should not be string" do
-    @pokemon.current_pp = "a"
-    assert_not @pokemon.valid?, "pokemon current pp should not be string"
+    @pokemon_skill.current_pp = "a"
+    assert_not @pokemon_skill.valid?, "pokemon current pp should not be string"
   end
 
   test "pokemon current pp is valid" do
-    @pokemon.current_pp = 500
-    assert @pokemon.valid?, "pokemon current pp should be valid"
+    @pokemon_skill.current_pp = 50
+    assert @pokemon_skill.valid?, "pokemon current pp should be valid"
 
-    @pokemon.current_pp = 0
-    assert @pokemon.valid?, "pokemon current pp should be valid 0"
+    @pokemon_skill.current_pp = 0
+    assert @pokemon_skill.valid?, "pokemon current pp should be valid 0"
+  end
+
+  test "pokemon skill with no valid pokemon should not be created" do
+    @pokemon_skill.pokemon_id = 9999999
+    assert_not @pokemon_skill.valid?, "pokemon skill with random pokemon_id should not be created"
+
+    @pokemon_skill.pokemon_id = nil
+    assert_not @pokemon_skill.valid?, "pokemon skill with no pokemon_id should not be created"
+  end
+
+  test "pokemon skill with valid pokemon should be created" do
+    assert @pokemon_skill.valid?, "pokemon skill with valid pokemon should be created"
+  end
+
+  test "pokemon skill with no valid skill should not be created" do
+    @pokemon_skill.skill_id = 9999999
+    assert_not @pokemon_skill.valid?, "pokemon skill with random skill_id should not be created"
+
+    @pokemon_skill.skill_id = nil
+    assert_not @pokemon_skill.valid?, "pokemon skill with no skill_id should not be created"
+  end
+
+  test "pokemon skill with valid skill should be created" do
+    assert @pokemon_skill.valid?, "pokemon skill with valid skill should be created"
   end
 end

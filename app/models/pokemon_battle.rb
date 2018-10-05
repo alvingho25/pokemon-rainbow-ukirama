@@ -15,13 +15,17 @@ class PokemonBattle < ApplicationRecord
     end
 
     def pokemon_health
-        @pokemon1 = Pokemon.find(pokemon1_id)
-        @pokemon2 = Pokemon.find(pokemon2_id)
-        if @pokemon1.current_health_point == 0 
-            errors.add(:base, " Pokemon1 can't have 0 health to battle")
-        end
-        if @pokemon2.current_health_point == 0
-            errors.add(:base, " Pokemon2 can't have 0 health to battle")
+        if Pokemon.exists?(pokemon1_id) && Pokemon.exists?(pokemon2_id)
+            @pokemon1 = Pokemon.find(pokemon1_id)
+            @pokemon2 = Pokemon.find(pokemon2_id)
+            if @pokemon1.current_health_point == 0 
+                errors.add(:base, " Pokemon1 can't have 0 health to battle")
+            end
+            if @pokemon2.current_health_point == 0
+                errors.add(:base, " Pokemon2 can't have 0 health to battle")
+            end
+        else  
+            errors.add(:base, " Pokemon Not Found")
         end
     end
 end
