@@ -1,6 +1,8 @@
 require 'csv'
 
-pokedex = CSV.open Rails.root + "db/pokedexes.csv", headers: true, header_converters: :symbol
+puts "Seeding Database pokedex"
+pokedex_path = "#{Rails.root}db/pokedexes.csv"
+pokedex = CSV.open pokedex_path , headers: true, header_converters: :symbol
 pokedex.each do |line|
     Pokedex.create!(
         name: line[:name],
@@ -13,7 +15,9 @@ pokedex.each do |line|
     )
 end
 
-skill = CSV.open Rails.root + "db/skills.csv", headers: true, header_converters: :symbol
+puts "Seeding Database skill"
+skill_path = "#{Rails.root}db/skills.csv"
+skill = CSV.open skill_path, headers: true, header_converters: :symbol
 skill.each do |line|
     Skill.create!(
         name: line[:name],
