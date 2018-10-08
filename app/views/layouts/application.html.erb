@@ -12,7 +12,7 @@
   <body>
     <%= render 'layouts/navbar' %>
     <ol class="breadcrumb">
-      <%= render_breadcrumbs :tag => :li, :separator => '&#160; / &#160;' %>
+      <%= render_breadcrumbs :tag => :li, :separator => '&nbsp;/&nbsp;' %>
     </ol>
     <div class="container" style="padding-top:10px">
       <% flash.each do |message_type, message| %>
