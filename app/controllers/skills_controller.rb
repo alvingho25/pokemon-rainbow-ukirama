@@ -1,6 +1,6 @@
 class SkillsController < ApplicationController
     add_breadcrumb "Home", :root_path
-    add_breadcrumb "Skill", :skills_path
+    add_breadcrumb "Skills", :skills_path
 
     def index
         @skills = Skill.paginate(page: params[:page], :per_page => 15)
@@ -8,7 +8,7 @@ class SkillsController < ApplicationController
 
     def new
         @skill = Skill.new
-        add_breadcrumb "New Skill", new_skill_path
+        add_breadcrumb "New", new_skill_path
     end
 
     def create
@@ -29,7 +29,7 @@ class SkillsController < ApplicationController
     def edit
         @skill = Skill.find(params[:id])
         add_breadcrumb "#{@skill.name}", skill_path(@skill)
-        add_breadcrumb "Edit #{@skill.name}", edit_skill_path(@skill)
+        add_breadcrumb "Edit", edit_skill_path(@skill)
     end
 
     def update

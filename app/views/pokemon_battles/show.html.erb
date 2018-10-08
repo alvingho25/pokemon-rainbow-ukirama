@@ -1,7 +1,6 @@
 <div class="container container-border">
-    <div class="clearfix">
+    <div>
         <h2 class="text-center">Pokemon Battle</h2>
-        <%= link_to "Battle List", pokemon_battles_path, class: "btn btn-primary float-right" %>
     </div>
     <% if !@pokemon_battle.pokemon_winner_id.nil? %>
         <h2 class="text-center">Winners : <%= @pokemon_battle.winner.name %></h2>

@@ -1,6 +1,6 @@
 class PokemonsController < ApplicationController
     add_breadcrumb "Home", :root_path
-    add_breadcrumb "Pokemon", :pokemons_path
+    add_breadcrumb "Pokemons", :pokemons_path
 
     def index
         @pokemons = Pokemon.paginate(page: params[:page], :per_page => 15)
@@ -9,7 +9,7 @@ class PokemonsController < ApplicationController
     def new
         @pokemon = Pokemon.new
         @pokedexes = Pokedex.all.map { |pokedex| [pokedex.name, pokedex.id]}
-        add_breadcrumb "New Pokemon", new_pokemon_path
+        add_breadcrumb "New", new_pokemon_path
     end
 
     def create
@@ -43,7 +43,7 @@ class PokemonsController < ApplicationController
     def edit
         @pokemon = Pokemon.find(params[:id])
         add_breadcrumb "#{@pokemon.name}", pokemon_path(@pokemon)
-        add_breadcrumb "Edit #{@pokemon.name}", edit_pokemon_path(@pokemon)
+        add_breadcrumb "Edit", edit_pokemon_path(@pokemon)
     end
 
     def update

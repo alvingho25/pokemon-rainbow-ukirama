@@ -51,10 +51,9 @@
         </div>
     </div>
     <div class="row form-footer">
-        <div class="col-md-7 offset-md-5" style="padding-bottom: 10px">
+        <div class="mx-auto" style="padding-bottom: 10px">
             <%= link_to "Edit Pokedex", edit_pokedex_path(@pokedex), class: "btn btn-primary btn-size" %>
             <%= link_to "Delete Pokedex", pokedex_path(@pokedex), method: :delete, data: { confirm: "You sure?" } , class: "btn btn-danger btn-size" %>
-            <%= link_to "Back", pokedexes_path, class: "btn btn-info btn-size" %>
         </div>
     </div>
 </div>

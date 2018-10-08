@@ -1,6 +1,6 @@
 class PokemonBattlesController < ApplicationController
     add_breadcrumb "Home", :root_path
-    add_breadcrumb "Pokemon Battle", :pokemon_battles_path
+    add_breadcrumb "Pokemon Battles", :pokemon_battles_path
 
     def index
         @pokemon_battles = PokemonBattle.paginate(page: params[:page], :per_page => 15)
@@ -9,7 +9,7 @@ class PokemonBattlesController < ApplicationController
     def new
         @pokemon_battle = PokemonBattle.new
         @pokemons = Pokemon.all.map{ |pokemon| [pokemon.name, pokemon.id] }
-        add_breadcrumb "New Battle", new_pokemon_battle_path
+        add_breadcrumb "New", new_pokemon_battle_path
     end
 
     def create

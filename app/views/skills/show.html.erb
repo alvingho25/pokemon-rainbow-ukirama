@@ -1,6 +1,6 @@
 <div class="container container-border">
     <div class="row form-header">
-        <h2 class="mx-auto">Skills</h2>
+        <h2 class="mx-auto">Skill</h2>
     </div>
     <div class="row">
         <div class="col-md-6">
@@ -34,11 +34,10 @@
             <h2>: <%= @skill.element_type %></h2>
         </div>
     </div>
-    <div class="row form-footer">
-        <div class="col-md-9 offset-md-3" style="padding-bottom: 10px">
+    <div class="row form-footer" style="padding-bottom: 10px">
+        <div class="mx-auto">
             <%= link_to "Edit Skill", edit_skill_path(@skill), class: "btn btn-primary btn-size" %>
             <%= link_to "Delete Skill", skill_path(@skill), method: :delete, data: { confirm: "You sure?" } , class: "btn btn-danger btn-size" %>
-            <%= link_to "Back", skills_path, class: "btn btn-info btn-size" %>
         </div>
     </div>
     

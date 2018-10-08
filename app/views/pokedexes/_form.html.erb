@@ -68,11 +68,6 @@
     </div>
 
     <div class="row form-footer">
-        <div class="col-5 offset-2">
-            <%= f.submit yield(:button), class: "btn btn-primary btn-block", :style => 'margin-top: 14px' %>
-        </div>
-        <div class="col-5">
-            <%= link_to "Back", pokedexes_path, class: "btn btn-info btn-block", :style => 'margin-top: 14px' %>
-        </div>
+        <%= f.submit yield(:button), class: "btn btn-primary btn-block", :style => 'margin-top: 14px' %>
     </div>
 <% end %>
