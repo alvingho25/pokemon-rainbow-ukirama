@@ -55,6 +55,52 @@ class PokemonsController < ApplicationController
         redirect_to pokemons_path
     end
 
+    def healall
+        pokemons = Pokemon.all
+        pokemons.each do |pokemon|
+            pokemon_battle = pokemon.battles
+            state = true
+            pokemon_battle.each do |battle|
+                if battle.state == 'On Going'
+                    state = false
+                    break
+                end
+            end
+            if state == true
+                pokemon.update!(current_health_point: pokemon.max_health_point)
+                skills = pokemon.pokemon_skills
+                skills.each do |skill|
+                    skill.update!(current_pp: skill.skill.max_pp)
+                end
+            end
+        end
+        flash[:success] = "All Pokemon currently not in battle has been healed"
+        redirect_to pokemons_path
+    end
+
+    def heal
+        pokemon = Pokemon.find(params[:id])
+        pokemon_battle = pokemon.battles
+        state = true
+        pokemon_battle.each do |battle|
+            if battle.state == 'On Going'
+                state = false
+                break
+            end
+        end
+        if state == true
+            pokemon.update!(current_health_point: pokemon.max_health_point)
+            skills = pokemon.pokemon_skills
+            skills.each do |skill|
+                skill.update!(current_pp: skill.skill.max_pp)
+            end
+            flash[:success] = "#{pokemon.name} has been healed"
+        else
+            flash[:danger] = "#{pokemon.name} can't be healed please make sure pokemon is not currently in battle"
+        end
+        redirect_to pokemons_path
+    end
+
     private
     def pokemon_params
         params.require(:pokemon).permit(:name, :pokedex_id)

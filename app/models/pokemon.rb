@@ -4,7 +4,7 @@ class Pokemon < ApplicationRecord
     has_many :skill, through: :pokemon_skills
 
     has_many :pokemon_battles, foreign_key: "pokemon1_id", dependent: :destroy
-    has_many :pokemon_battles, foreign_key: "pokemon2_id", dependent: :destroy
+    has_many :pokemon_battles2, class_name: "PokemonBattle", foreign_key: "pokemon2_id", dependent: :destroy
 
     has_many :attacker, class_name: "PokemonBattleLog", foreign_key: "attacker_id"
     has_many :defender, class_name: "PokemonBattleLog", foreign_key: "defender_id"
@@ -19,6 +19,10 @@ class Pokemon < ApplicationRecord
     validates :defence, numericality: { greater_than: 0 }
     validates :speed, numericality: { greater_than: 0 }
     validates :level, numericality: { greater_than: 0 }
+    
+    def battles
+        (pokemon_battles.all + pokemon_battles2.all).uniq
+    end
 
     private
 
