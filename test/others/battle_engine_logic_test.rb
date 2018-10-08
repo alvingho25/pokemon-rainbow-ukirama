@@ -114,7 +114,7 @@ class BattleEngineLogicTest < ActiveSupport::TestCase
             battle_engine.save!
             pokemon_battle = PokemonBattle.find(@pokemon_battle.id)
         end
-        assert_not_equal current_hp, pokemon_battle.pokemon2.current_health_point, "Pokemon 2 current HP should not be equal to pokemon 2 max hp" 
+        assert_operator pokemon_battle.pokemon2.current_health_point, :< , current_hp, "Pokemon 2 current HP should not be equal to pokemon 2 max hp" 
         assert_equal current_turn + 1, pokemon_battle.current_turn, "Pokemon battle current turn should increase by 1"
         assert_equal current_pp - 1, pokemon_battle.pokemon1.pokemon_skills.find_by(skill_id: @pokemon_skill.skill_id).current_pp, "Pokemon 1 skill should decrease by 1"
     end
