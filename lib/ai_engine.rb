@@ -19,9 +19,7 @@ module AiEngine
             end
             battle_engine = BattleEngine.new(battle_id: @pokemon_battle.id,pokemon_id: @pokemon.id, skill_id: @skill_id, action: @action)
             if battle_engine.valid_next_turn?
-                puts "battle"
                 if battle_engine.next_turn!
-                    puts "battle 2"
                     battle_engine.save!
                 end
             end
