@@ -112,3 +112,43 @@
         </div>
     </div>
 </div>
+
+<div class="container-fluid">
+    <div class="clearfix">
+        <h2>Pokemon Battle Logs</h2>
+    </div>
+    <table class="table table-bordered" style= "margin-top:10px">
+        <thead>
+            <tr class="d-flex">
+                <th class="col-1 text-center">Turn</th>
+                <th class="col-2 text-center">Skill</th>
+                <th class="col-1 text-center">Damage</th>
+                <th class="col-2 text-center">Attacker</th>
+                <th class="col-1 text-center">Attacker Health Point</th>
+                <th class="col-2 text-center">Defender</th>
+                <th class="col-1 text-center">Defender Health Point</th>
+                <th class="col-2 text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @logs.each do |log| %>
+                <tr class="d-flex">
+                    <td class="col-1 text-center"><%= log.turn %></td>
+                    <td class="col-2 text-center">
+                        <% if log.skill.nil? %>
+                        -
+                        <% else %>
+                        <%= log.skill.name %>
+                        <% end %>
+                    </td>
+                    <td class="col-1 text-center"><%= log.damage %></td>
+                    <td class="col-2 text-center"><%= log.attacker.name %></td>
+                    <td class="col-1 text-center"><%= log.attacker_current_health_point %></td>
+                    <td class="col-2 text-center"><%= log.defender.name %></td>
+                    <td class="col-1 text-center"><%= log.defender_current_health_point %></td>
+                    <td class="col-2 text-center"><%= log.action_type %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>

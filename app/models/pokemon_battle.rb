@@ -4,6 +4,8 @@ class PokemonBattle < ApplicationRecord
     belongs_to :winner, class_name: "Pokemon", foreign_key: "pokemon_winner_id", optional: true
     belongs_to :loser, class_name: "Pokemon", foreign_key: "pokemon_loser_id", optional: true
 
+    has_many :logs, class_name: "PokemonBattleLog", foreign_key: "pokemon_battle_id", dependent: :destroy
+
     validate :same_pokemon
     validate :pokemon_health, on: :create
 

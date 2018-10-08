@@ -5,7 +5,7 @@ module PokemonBattleCalculator
             ghost: 0,
             steel: 0.5
         },
-        fight: {
+        fighting: {
             normal: 2,
             flying: 0.5,
             poison: 0.5,
@@ -13,13 +13,13 @@ module PokemonBattleCalculator
             bug: 0.5,
             ghost: 0,
             steel: 2,
-            pyschic: 0.5,
+            psychic: 0.5,
             ice: 2,
             dark: 2,
             fairy: 0.5
         },
         flying: {
-            fight: 2,
+            fighting: 2,
             rock: 0.5,
             bug: 2,
             steel: 0.5,
@@ -46,7 +46,7 @@ module PokemonBattleCalculator
             electric: 2
         },
         rock: {
-            fight: 0.5,
+            fighting: 0.5,
             flying: 2,
             ground: 0.5,
             bug: 2,
@@ -55,21 +55,21 @@ module PokemonBattleCalculator
             ice: 2
         },
         bug: {
-            fight: 0.5,
+            fighting: 0.5,
             flying: 0.5,
             poison: 0.5,
             ghost: 0.5,
             steel: 0.5,
             fire: 0.5,
             grass: 2,
-            pyschic: 2,
+            psychic: 2,
             dark: 2,
             fairy: 0.5
         },
         ghost: {
             normal: 0,
             ghost: 2,
-            pyschic: 2,
+            psychic: 2,
             dark: 0.5
         },
         steel: {
@@ -119,11 +119,11 @@ module PokemonBattleCalculator
             electric: 0.5,
             dragon: 0.5
         },
-        pyschic: {
+        psychic: {
             flying: 2,
             ground: 2,
             steel: 0.5,
-            pyschic: 0.5,
+            psychic: 0.5,
             dark: 0
         },
         ice: {
@@ -142,14 +142,14 @@ module PokemonBattleCalculator
             fairy: 0
         },
         dark: {
-            fight: 0.5,
+            fighting: 0.5,
             ghost: 2,
-            pyschic: 2,
+            psychic: 2,
             dark: 0.5,
             fairy: 0.5
         },
         fairy: {
-            fight: 2,
+            fighting: 2,
             poison: 0.5,
             steel: 0.5,
             fire: 0.5,
@@ -168,8 +168,9 @@ module PokemonBattleCalculator
         else
             stab = 1.0
         end
-        resistance = TABLE_RESISTANCE[skill.element_type.to_sym][defender.pokedex.element_type.to_sym]
-        if !resistance.present?
+        if TABLE_RESISTANCE[skill.element_type.to_sym][defender.pokedex.element_type.to_sym].present?
+            resistance = TABLE_RESISTANCE[skill.element_type.to_sym][defender.pokedex.element_type.to_sym]
+        else
             resistance = 1
         end
         damage = ((((2 * attacker.level.to_f / 5 + 2) * attacker.attack * skill.power / defender.defence) / 50) + 2) * stab * resistance * (randomnumber.to_f / 100)

@@ -27,6 +27,7 @@ class PokemonBattlesController < ApplicationController
         @pokemon_battle = PokemonBattle.find(params[:id])
         @skill1 = @pokemon_battle.pokemon1.pokemon_skills.map{ |s| [s.skill.name, s.skill_id]}
         @skill2 = @pokemon_battle.pokemon2.pokemon_skills.map{ |s| [s.skill.name, s.skill_id]}
+        @logs = @pokemon_battle.logs
     end
 
     def destroy

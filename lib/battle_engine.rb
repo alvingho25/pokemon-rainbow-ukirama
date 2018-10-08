@@ -35,6 +35,19 @@ class BattleEngine
                     @defender.current_health_point = @defender.current_health_point - damage
                     if @defender.current_health_point <= 0
                         @defender.current_health_point = 0
+                    end
+                    @logs = PokemonBattleLog.new(
+                        pokemon_battle_id: @pokemon_battle.id,
+                        turn: @pokemon_battle.current_turn,
+                        skill_id: @pokemon_skill.skill_id,
+                        damage: damage,
+                        attacker_id: @attacker.id,
+                        attacker_current_health_point: @attacker.current_health_point,
+                        defender_id: @defender.id,
+                        defender_current_health_point: @defender.current_health_point,
+                        action_type: @action
+                    )
+                    if @defender.current_health_point == 0
                         @pokemon_battle.pokemon_winner_id = @attacker.id
                         @pokemon_battle.pokemon_loser_id = @defender.id
                         @pokemon_battle.state = 'Finished'
@@ -50,6 +63,15 @@ class BattleEngine
                 end
             end
         else
+            @logs = PokemonBattleLog.new(
+                pokemon_battle_id: @pokemon_battle.id,
+                turn: @pokemon_battle.current_turn,
+                attacker_id: @attacker.id,
+                attacker_current_health_point: @attacker.current_health_point,
+                defender_id: @defender.id,
+                defender_current_health_point: @defender.current_health_point,
+                action_type: @action
+            )
             @pokemon_battle.pokemon_winner_id = @defender.id
             @pokemon_battle.pokemon_loser_id = @attacker.id
             @pokemon_battle.state = 'Finished'
@@ -66,6 +88,7 @@ class BattleEngine
         @pokemon_battle.save!
         @attacker.save!
         @defender.save!
+        @logs.save!
         if !@pokemon_skill.nil?
             @pokemon_skill.save!
         end
