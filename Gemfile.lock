@@ -52,6 +52,7 @@ GEM
       msgpack (~> 1.0)
     bootstrap-will_paginate (1.0.0)
       will_paginate
+    breadcrumbs_on_rails (3.0.1)
     builder (3.2.3)
     byebug (10.0.2)
     capybara (3.8.2)
@@ -205,6 +206,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.1.0)
   bootstrap-will_paginate (= 1.0.0)
+  breadcrumbs_on_rails
   byebug
   capybara (>= 2.15)
   chromedriver-helper

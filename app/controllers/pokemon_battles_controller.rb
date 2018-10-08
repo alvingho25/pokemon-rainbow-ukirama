@@ -1,11 +1,15 @@
 class PokemonBattlesController < ApplicationController
+    add_breadcrumb "Home", :root_path
+    add_breadcrumb "Pokemon Battle", :pokemon_battles_path
+
     def index
-        @pokemon_battles = PokemonBattle.paginate(page: params[:page], :per_page => 5)
+        @pokemon_battles = PokemonBattle.paginate(page: params[:page], :per_page => 15)
     end
 
     def new
         @pokemon_battle = PokemonBattle.new
         @pokemons = Pokemon.all.map{ |pokemon| [pokemon.name, pokemon.id] }
+        add_breadcrumb "New Battle", new_pokemon_battle_path
     end
 
     def create
@@ -28,6 +32,7 @@ class PokemonBattlesController < ApplicationController
         @skill1 = @pokemon_battle.pokemon1.pokemon_skills.map{ |s| [s.skill.name, s.skill_id]}
         @skill2 = @pokemon_battle.pokemon2.pokemon_skills.map{ |s| [s.skill.name, s.skill_id]}
         @logs = @pokemon_battle.logs
+        add_breadcrumb "#{@pokemon_battle.pokemon1.name} vs #{@pokemon_battle.pokemon2.name}", pokemon_battle_path(@pokemon_battle)
     end
 
     def destroy
