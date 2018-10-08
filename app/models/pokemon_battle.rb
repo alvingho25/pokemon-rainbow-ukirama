@@ -8,6 +8,8 @@ class PokemonBattle < ApplicationRecord
 
     validate :same_pokemon
     validate :pokemon_health, on: :create
+    validates :battle_type, inclusion: { in: ['Manual', 'vs AI', 'Auto'],
+        message: "%{value} is not a valid battle type" }
 
     private
     def same_pokemon

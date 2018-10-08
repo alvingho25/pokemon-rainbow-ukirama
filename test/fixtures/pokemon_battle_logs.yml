@@ -1,15 +1,1 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  turn: 1
-  damage: 1
-  attacker_current_health_point: 1
-  defender_current_health_point: 1
-  action_type: 1
-
-two:
-  turn: 1
-  damage: 1
-  attacker_current_health_point: 1
-  defender_current_health_point: 1
-  action_type: 1

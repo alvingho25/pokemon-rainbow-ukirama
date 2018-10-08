@@ -1,10 +1,10 @@
 <div class="container container-border">
     <div>
         <h2 class="text-center">Pokemon Battle</h2>
+        <% if !@pokemon_battle.pokemon_winner_id.nil? %>
+            <h2 class="text-center">Winners : <%= @pokemon_battle.winner.name %></h2>
+        <% end %>    
     </div>
-    <% if !@pokemon_battle.pokemon_winner_id.nil? %>
-        <h2 class="text-center">Winners : <%= @pokemon_battle.winner.name %></h2>
-    <% end %>
     <div class="row" style="margin-top:10px">
         <div class="col-4">
             <div class="container">
@@ -43,12 +43,15 @@
                         <% if @pokemon_battle.current_turn % 2 == 0 %>
                             <%= f.submit "Attack", class: "btn btn-primary", disabled: true %>
                             <%= f.submit "Surrender", class: "btn btn-primary", disabled: true %>
+                            <%= f.submit "Auto", class: "btn btn-secondary", disabled: true%>
                         <% elsif !@pokemon_battle.pokemon_winner_id.nil?%>
                             <%= f.submit "Attack", class: "btn btn-primary", disabled: true %>
                             <%= f.submit "Surrender", class: "btn btn-primary", disabled: true %>
+                            <%= f.submit "Auto", class: "btn btn-secondary", disabled: true%>
                         <% else %>
                             <%= f.submit "Attack", class: "btn btn-primary" %>
                             <%= f.submit "Surrender", class: "btn btn-primary" %>
+                            <%= f.submit "Auto", class: "btn btn-secondary"%>
                         <% end %>
                     </div>
                     <% end %>
@@ -97,12 +100,15 @@
                         <% if @pokemon_battle.current_turn % 2 != 0 %>
                             <%= f.submit "Attack", class: "btn btn-primary", disabled: true %>
                             <%= f.submit "Surrender", class: "btn btn-primary", disabled: true %>
+                            <%= f.submit "Auto", class: "btn btn-secondary", disabled: true%>
                         <% elsif !@pokemon_battle.pokemon_winner_id.nil?%>
                             <%= f.submit "Attack", class: "btn btn-primary", disabled: true %>
                             <%= f.submit "Surrender", class: "btn btn-primary", disabled: true %>
+                            <%= f.submit "Auto", class: "btn btn-secondary", disabled: true%>
                         <% else %>
                             <%= f.submit "Attack", class: "btn btn-primary" %>
                             <%= f.submit "Surrender", class: "btn btn-primary" %>
+                            <%= f.submit "Auto", class: "btn btn-secondary"%>
                         <% end %>
                     </div>
                     <% end %>

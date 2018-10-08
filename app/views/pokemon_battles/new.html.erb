@@ -23,7 +23,15 @@
         </div>
 
         <div class="row form-footer">
-            <%= f.submit "Lets Battle!", class: "btn btn-primary btn-block", :style => 'margin-top: 14px' %>
+            <div class="col-md-4">
+                <%= f.submit "Manual", class: "btn btn-primary btn-block", :style => 'margin-top: 14px' %>
+            </div>
+            <div class="col-md-4">
+                <%= f.submit "vs AI", class: "btn btn-primary btn-block", :style => 'margin-top: 14px' %>
+            </div>
+            <div class="col-md-4">
+                <%= f.submit "Auto", class: "btn btn-primary btn-block", :style => 'margin-top: 14px' %>
+            </div>
         </div>
     <% end %>
 </div>

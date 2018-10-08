@@ -62,7 +62,8 @@ class BattleEngineLogicTest < ActiveSupport::TestCase
             state: 'On Going',
             experience_gain: 0,
             pokemon1_max_health_point: @pokemon1.max_health_point,
-            pokemon2_max_health_point: @pokemon2.max_health_point
+            pokemon2_max_health_point: @pokemon2.max_health_point,
+            battle_type: 'Manual'
           )
           @pokemon_battle.save
     end
