@@ -86,7 +86,7 @@ class AiEngineLogicTest < ActiveSupport::TestCase
         current_turn = pokemon_battle.current_turn
         current_pp = pokemon_battle.pokemon2.pokemon_skills.find_by(skill_id: @pokemon_skill2.skill_id).current_pp
 
-        AiEngine.my_turn(pokemon_battle.id)
+        AiEngine.ai_turn(pokemon_battle.id)
         pokemon_battle.reload
 
         assert_operator pokemon_battle.pokemon1.current_health_point, :<, current_hp, "Pokemon 1 current HP should not be equal to pokemon 1 max hp"
