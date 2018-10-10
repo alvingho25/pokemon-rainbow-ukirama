@@ -1,6 +1,85 @@
-<div class="container" style="padding-top: 10px">
+<div class="container-fluid" style="padding-top: 10px;">
   <div class="text-center">
-    <%= image_tag "pokemon.png", style: 'height:100%;width:50%;' %>
+    <%= image_tag "pokemon.png", size: "400x200" %>
     <h2>Welcome To PoKéMoN RAINBOW Game</h2>
+  </div>
+  <ul class="nav nav-pills justify-content-center">
+    <% @element_type.each do |element|%>
+      <li class="nav-item">
+        <%= link_to element, root_path(:element => element), class: "nav-link #{@element_status[element.to_sym]}" %>
+      </li>
+    <% end %>
+  </ul>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 container-border">
+        <%= column_chart @top_winner,
+          title: "Top 5 Winner #{@element} type",
+          colors: ['blue'],
+          library: {
+            yAxis: {
+              allowDecimals: false,
+              title: {
+                text: "Wins"
+              }
+            },
+            xAxis: {
+              title: {
+                text: "Pokemon Name"
+              }
+            },
+            tooltip: {
+              backgroundColor: '#FCFFC5',
+              borderColor: 'blue',
+              borderRadius: 10,
+              borderWidth: 3
+            }
+          },
+          messages: {empty: "Top 5 Winner Pokemon :No data"}
+        %>
+      </div>
+      <div class="col-md-6 container-border">
+        <%= bar_chart @top_loser,
+          title: "Top 5 Loser #{@element} type",
+          colors: ['red'],
+          ytitle: 'Lose',
+          xtitle: 'Pokemon Name',
+          messages: {empty: "Top 5 Loser Pokemon: No data"}
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 container-border">
+          <%= line_chart @top_skill,
+          title: "Top 5 Skill Used #{@element} type",
+          colors: ['red'],
+          ytitle: 'Used',
+          xtitle: 'Pokemon Name',
+          messages: {empty: "No data"}
+        %>
+      </div>
+      <div class="col-md-6 container-border">
+          <%= pie_chart @top_pokemon,
+          title: "Top 5 Pokemon Used #{@element} type",
+          ytitle: 'Used',
+          xtitle: 'Pokemon Name',
+          messages: {empty: "Top 5 Skill Used: No data"}
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 container-border">
+          <%= bar_chart @top_coward,
+          title: "Top 5 Most Surrenderd Pokemon #{@element} type",
+          colors: ['green'],
+          ytitle: 'Surrender',
+          xtitle: 'Pokemon Name',
+          messages: {empty: "Top 5 Most Surrendered Pokemon: No data"}
+        %>
+      </div>
+    </div>
+
   </div>
 </div>

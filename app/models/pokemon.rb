@@ -24,6 +24,36 @@ class Pokemon < ApplicationRecord
         (pokemon_battles.all + pokemon_battles2.all).uniq
     end
 
+    def wins
+        sql = "select count(pokemon_battles.pokemon_winner_id) " +
+        "from pokemons " +
+        "join pokemon_battles on (pokemon_battles.pokemon_winner_id = pokemons.id) " +
+        "where pokemons.id = #{id} " +
+        "group by pokemon_battles.pokemon_winner_id"
+        win = ActiveRecord::Base.connection.execute(sql)
+        if win.values[0].nil?
+            win = 0
+        else
+            win = win.values[0][0]
+        end
+        win
+    end
+
+    def loses
+        sql = "select count(pokemon_battles.pokemon_winner_id) " +
+        "from pokemons " +
+        "join pokemon_battles on (pokemon_battles.pokemon_loser_id = pokemons.id) " +
+        "where pokemons.id = #{id} " +
+        "group by pokemon_battles.pokemon_loser_id"
+        lose = ActiveRecord::Base.connection.execute(sql)
+        if lose.values[0].nil?
+            lose = 0
+        else
+            lose = lose.values[0][0]
+        end
+        lose
+    end    
+
     private
 
     def max_health_point_present?
