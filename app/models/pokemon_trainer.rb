@@ -2,8 +2,8 @@ class PokemonTrainer < ApplicationRecord
     belongs_to :trainer
     belongs_to :pokemon
 
-    validate :same_pokemon
-    validate :five_pokemon
+    validate :same_pokemon, on: :create
+    validate :five_pokemon, on: :create
 
     def win_rate
         sql = "

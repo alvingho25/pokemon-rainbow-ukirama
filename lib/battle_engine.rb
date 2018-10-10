@@ -56,6 +56,17 @@ class BattleEngine
                         @pokemon_battle.experience_gain = experience
                         @attacker.current_experience = @attacker.current_experience + experience
                         @attacker = leveling_up(@attacker)
+                        if PokemonTrainer.exists?(pokemon_id: @attacker.id)
+                            @winner = PokemonTrainer.find_by(pokemon_id: @attacker.id)
+                            @winner.battle = @winner.battle + 1
+                            @winner.win = @winner.win + 1
+                            @winner.save
+                        end
+                        if PokemonTrainer.exists?(pokemon_id: @defender.id)
+                            @loser = PokemonTrainer.find_by(pokemon_id: @defender.id)
+                            @loser.battle = @loser.battle + 1
+                            @loser.lose = @loser.lose + 1
+                        end
                     else
                         @pokemon_battle.current_turn = @pokemon_battle.current_turn + 1
                     end
@@ -80,6 +91,17 @@ class BattleEngine
             @pokemon_battle.experience_gain = experience
             @defender.current_experience = @defender.current_experience + experience
             @defender = leveling_up(@defender)
+
+            if PokemonTrainer.exists?(pokemon_id: @defender.id)
+                @winner = PokemonTrainer.find_by(pokemon_id: @defender.id)
+                @winner.battle = @winner.battle + 1
+                @winner.win = @winner.win + 1
+            end
+            if PokemonTrainer.exists?(pokemon_id: @attacker.id)
+                @loser = PokemonTrainer.find_by(pokemon_id: @attacker.id)
+                @loser.battle = @loser.battle + 1
+                @loser.lose = @loser.lose + 1
+            end
         end
         true
     end
@@ -91,6 +113,12 @@ class BattleEngine
         @logs.save!
         if !@pokemon_skill.nil?
             @pokemon_skill.save!
+        end
+        if !@winner.nil?
+            @winner.save!
+        end
+        if !@loser.nil?
+            @loser.save!
         end
     end
 

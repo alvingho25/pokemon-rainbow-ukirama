@@ -41,25 +41,29 @@
     <div class="clearfix">
         <h2>My Pokemon</h2>
     </div>
+    <%= link_to "Heal All", heal_trainer_path(@trainer), class: "btn btn-success"%>
     <%= render 'layouts/error_messages', object: @pokemon_trainer %>
     <table class="table table-bordered" style= "margin-top:10px">
         <thead>
             <tr class="d-flex">
-                <th class="col-3 text-center">Name</th>
-                <th class="col-3 text-center">Image</th>
+                <th class="col-2 text-center">Name</th>
+                <th class="col-2 text-center">Image</th>
                 <th class="col-2 text-center">Win/Lose</th>
                 <th class="col-2 text-center">Win Rate</th>
+                <th class="col-2 text-center">HP</th>
                 <th class="col-2 text-center">Action</th>
             </tr>
         </thead>
         <tbody>
             <% @trainer.pokemon_trainers.each do |pokemon_trainer| %>
                 <tr class="d-flex">
-                    <td class="col-3 text-center"><%= pokemon_trainer.pokemon.name %></td>
-                    <td class="col-3 text-center"><%= image_tag pokemon_trainer.pokemon.pokedex.image_url, size: "50x50" %></td>
+                    <td class="col-2 text-center"><%= link_to pokemon_trainer.pokemon.name, pokemon_path(pokemon_trainer.pokemon), class: "btn btn-link" %></td>
+                    <td class="col-2 text-center"><%= image_tag pokemon_trainer.pokemon.pokedex.image_url, size: "50x50" %></td>
                     <td class="col-2 text-center"><%= pokemon_trainer.win %> / <%= pokemon_trainer.lose %></td>
                     <td class="col-2 text-center"><%= pokemon_trainer.win_rate %>%</td>
+                    <td class="col-2 text-center"><%= pokemon_trainer.pokemon.current_health_point %>/<%= pokemon_trainer.pokemon.max_health_point %></td>
                     <td class="col-2 text-center">
+                    <%= link_to "Heal", heal_trainer_pokemon_path(@trainer, pokemon_trainer.pokemon), class: "btn btn-success"%>
                     <%= link_to "Delete", trainer_pokemon_trainer_path(@trainer, pokemon_trainer), method: :delete,
                                     data: { confirm: "You sure?" }, class: "btn btn-danger"%>
                     </td>

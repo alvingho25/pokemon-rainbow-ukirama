@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root 'static_pages#home'
   get '/heal', to: 'pokemons#healall'
   get '/heal/:id', to: 'pokemons#heal', as: 'heal_pokemon'
+  get '/heal-trainer/:id', to: 'pokemon_trainers#healall', as: 'heal_trainer'
+  get '/heal-trainer/:id/:pokemon_id', to: 'pokemon_trainers#heal', as: 'heal_trainer_pokemon'
 
   resources :pokedexes
   resources :skills
