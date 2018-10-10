@@ -6,7 +6,7 @@
   <ul class="nav nav-pills justify-content-center">
     <% @element_type.each do |element|%>
       <li class="nav-item">
-        <%= link_to element, root_path(:element => element), class: "nav-link #{@element_status[element.to_sym]}" %>
+        <%= link_to element, root_path(:element => element), class: "nav-link #{@element == element ? 'active' : ''}" %>
       </li>
     <% end %>
   </ul>
@@ -56,7 +56,12 @@
           colors: ['red'],
           ytitle: 'Used',
           xtitle: 'Pokemon Name',
-          messages: {empty: "No data"}
+          messages: {empty: "Top 5 Skill used: No data"},
+          library: {
+            yAxis: {
+              reversed: true
+            }
+          }
         %>
       </div>
       <div class="col-md-6 container-border">
@@ -64,7 +69,7 @@
           title: "Top 5 Pokemon Used #{@element} type",
           ytitle: 'Used',
           xtitle: 'Pokemon Name',
-          messages: {empty: "Top 5 Skill Used: No data"}
+          messages: {empty: "Top 5 Pokemon Used: No data"}
         %>
       </div>
     </div>
