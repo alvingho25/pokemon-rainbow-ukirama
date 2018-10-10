@@ -1,0 +1,2 @@
+module PokemonTrainersHelper
+end

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  battle: 1
+  win: 1
+  lose: 1
+
+two:
+  battle: 1
+  win: 1
+  lose: 1

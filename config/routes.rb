@@ -10,4 +10,7 @@ Rails.application.routes.draw do
     resources :pokemon_skills, only: [:create, :destroy]
   end
   resources :pokemon_battles
+  resources :trainers do
+    resources :pokemon_trainers, only: [:create, :destroy]
+  end
 end

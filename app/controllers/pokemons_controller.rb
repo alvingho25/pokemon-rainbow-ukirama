@@ -49,7 +49,7 @@ class PokemonsController < ApplicationController
     def update
         @pokemon = Pokemon.find(params[:id])
         if @pokemon.update_attributes(edit_params)
-            flash[:success] = "Edit Succesfull"
+            flash[:success] = "Update Succesfull"
             redirect_to pokemon_path(@pokemon)
         else
             render :edit

@@ -1,0 +1,32 @@
+<div class="container-fluid">
+    <div>
+        <h2>Trainers</h2>
+        <%= link_to "New Trainer", new_trainer_path, class: "btn btn-primary"%>
+    </div>
+
+    <table class="table table-bordered" style= "margin-top:10px">
+        <thead>
+            <tr class="d-flex">
+                <th class="col-4 text-center">Name</th>
+                <th class="col-4 text-center">Email</th>
+                <th class="col-4 text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @trainers.each do |trainer| %>
+                <tr class="d-flex">
+                    <td class="col-4 text-center"><%= trainer.name %></td>
+                    <td class="col-4 text-center"><%= trainer.email %></td>
+                    <td class="col-4 text-center">
+                    <%= link_to "Show", trainer_path(trainer), class: "btn btn-info"%>
+                    <%= link_to "Delete", trainer_path(trainer), method: :delete,
+                                    data: { confirm: "You sure?" }, class: "btn btn-danger"%>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+    <div class="clearfix">
+        <%= will_paginate @trainers, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer, class: "float-right" %>
+    </div>
+</div>

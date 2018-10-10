@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_08_022058) do
+ActiveRecord::Schema.define(version: 2018_10_10_024156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,16 @@ ActiveRecord::Schema.define(version: 2018_10_08_022058) do
     t.integer "skill_id", null: false
   end
 
+  create_table "pokemon_trainers", force: :cascade do |t|
+    t.integer "battle", default: 0
+    t.integer "win", default: 0
+    t.integer "lose", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "trainer_id", null: false
+    t.integer "pokemon_id", null: false
+  end
+
   create_table "pokemons", force: :cascade do |t|
     t.string "name"
     t.integer "level", default: 1
@@ -89,6 +99,14 @@ ActiveRecord::Schema.define(version: 2018_10_08_022058) do
     t.index ["name"], name: "index_skills_on_name", unique: true
   end
 
+  create_table "trainers", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "pokemon_battle_logs", "pokemon_battles"
   add_foreign_key "pokemon_battle_logs", "pokemons", column: "attacker_id"
   add_foreign_key "pokemon_battle_logs", "pokemons", column: "defender_id"
@@ -99,5 +117,7 @@ ActiveRecord::Schema.define(version: 2018_10_08_022058) do
   add_foreign_key "pokemon_battles", "pokemons", column: "pokemon_winner_id"
   add_foreign_key "pokemon_skills", "pokemons"
   add_foreign_key "pokemon_skills", "skills"
+  add_foreign_key "pokemon_trainers", "pokemons"
+  add_foreign_key "pokemon_trainers", "trainers"
   add_foreign_key "pokemons", "pokedexes"
 end
