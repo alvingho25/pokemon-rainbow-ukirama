@@ -25,11 +25,17 @@ class Pokemon < ApplicationRecord
     end
 
     def wins
-        sql = "select count(pokemon_battles.pokemon_winner_id) " +
-        "from pokemons " +
-        "join pokemon_battles on (pokemon_battles.pokemon_winner_id = pokemons.id) " +
-        "where pokemons.id = #{id} " +
-        "group by pokemon_battles.pokemon_winner_id"
+        sql = "
+            select 
+                count(pokemon_battles.pokemon_winner_id)
+            from 
+                pokemons
+            join pokemon_battles 
+                on (pokemon_battles.pokemon_winner_id = pokemons.id)
+            where 
+                pokemons.id = #{id}
+            group by 
+                pokemon_battles.pokemon_winner_id"
         win = ActiveRecord::Base.connection.execute(sql)
         if win.values[0].nil?
             win = 0
@@ -40,11 +46,17 @@ class Pokemon < ApplicationRecord
     end
 
     def loses
-        sql = "select count(pokemon_battles.pokemon_winner_id) " +
-        "from pokemons " +
-        "join pokemon_battles on (pokemon_battles.pokemon_loser_id = pokemons.id) " +
-        "where pokemons.id = #{id} " +
-        "group by pokemon_battles.pokemon_loser_id"
+        sql = "
+            select 
+                count(pokemon_battles.pokemon_loser_id)
+            from 
+                pokemons
+            join pokemon_battles 
+                on (pokemon_battles.pokemon_loser_id = pokemons.id)
+            where 
+                pokemons.id = #{id}
+            group by 
+                pokemon_battles.pokemon_loser_id"
         lose = ActiveRecord::Base.connection.execute(sql)
         if lose.values[0].nil?
             lose = 0
