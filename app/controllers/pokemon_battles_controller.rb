@@ -8,7 +8,7 @@ class PokemonBattlesController < ApplicationController
 
     def new
         @pokemon_battle = PokemonBattle.new
-        @pokemons = Pokemon.all.map{ |pokemon| [pokemon.name, pokemon.id] }
+        @pokemons = Pokemon.all.order(created_at: :asc).map{ |pokemon| [pokemon.name, pokemon.id] }
         add_breadcrumb "New", new_pokemon_battle_path
     end
 
@@ -22,7 +22,12 @@ class PokemonBattlesController < ApplicationController
         if @pokemon_battle.save
             flash[:success] = "Battle successfully created, Lets Fight!!"
             if params[:commit] == 'Auto'
+                pokemon1_level = @pokemon_battle.pokemon1.level
+                pokemon2_level = @pokemon_battle.pokemon2.level
                 AiEngine.auto_battle(@pokemon_battle.id)
+                if PokemonEvolution.evolve?(@pokemon_battle.id, pokemon1_level, pokemon2_level)
+                    redirect_to evolve_confirmation_pokemon_battle_path(@pokemon_battle) and return
+                end
             end
             redirect_to pokemon_battle_path(@pokemon_battle)
         else
@@ -46,20 +51,26 @@ class PokemonBattlesController < ApplicationController
     end
 
     def update
+        @pokemon_battle = PokemonBattle.find(params[:id])
+        pokemon1_level = @pokemon_battle.pokemon1.level
+        pokemon2_level = @pokemon_battle.pokemon2.level
         if params[:commit] == "Auto"
-            AiEngine.auto_battle(params[:id])
-            redirect_to pokemon_battle_path(params[:id])
+            AiEngine.auto_battle(@pokemon_battle.id)
+            if PokemonEvolution.evolve?(@pokemon_battle.id, pokemon1_level, pokemon2_level)
+                redirect_to evolve_confirmation_pokemon_battle_path(@pokemon_battle)
+            else
+                redirect_to pokemon_battle_path(@pokemon_battle)
+            end
         else
-            @pokemon_battle = PokemonBattle.find(params[:id])
             battle_engine = BattleEngine.new(battle_id: params[:id].to_i,pokemon_id: params[:attack][:pokemon_id].to_i, skill_id: params[:attack][:skill_id].to_i, action: params[:commit])
             if battle_engine.valid_next_turn?
                 if battle_engine.next_turn!
                     battle_engine.save!
                     @pokemon_battle.reload
                     if @pokemon_battle.battle_type == 'vs AI' && @pokemon_battle.state == 'On Going'
-                        AiEngine.my_turn(@pokemon_battle.id)
+                        AiEngine.ai_turn(@pokemon_battle.id)
                     end
-                    if battle_engine.evolve?
+                    if PokemonEvolution.evolve?(@pokemon_battle.id, pokemon1_level, pokemon2_level)
                         redirect_to evolve_confirmation_pokemon_battle_path(@pokemon_battle)
                     else
                         redirect_to pokemon_battle_path(@pokemon_battle)
@@ -102,19 +113,56 @@ class PokemonBattlesController < ApplicationController
                 if EvolutionList.exists?(pokedex_from_name: @pokemon.pokedex.name)
                     @evolve_to = EvolutionList.find_by(pokedex_from_name: @pokemon.pokedex.name)
                     @pokemon_evolve_to = Pokedex.find_by(name: @evolve_to.pokedex_to_name)
-                    stats = PokemonBattleCalculator.calculate_evolve_extra_stats(@pokemon.pokedex_id, @pokemon_evolve_to.id)
+                    stats = PokemonEvolution.calculate_evolve_extra_stats(@pokemon.pokedex_id, @pokemon_evolve_to.id)
                     @pokemon.pokedex_id = @pokemon_evolve_to.id
                     @pokemon.max_health_point = @pokemon.max_health_point + stats.health
                     @pokemon.attack = @pokemon.attack + stats.attack
                     @pokemon.defence = @pokemon.defence + stats.defence
                     @pokemon.speed = @pokemon.speed + stats.speed
                     @pokemon.save!
-                    redirect_to pokemon_battle_path(@pokemon_battle)
+                    redirect_to skill_change_pokemon_battle_path(@pokemon_battle)
                 end
             else
                 redirect_to pokemon_battle_path(@pokemon_battle)
             end
         else
+            redirect_to pokemon_battle_path(@pokemon_battle)
+        end
+    end
+
+    def skill_change
+        @pokemon_battle = PokemonBattle.find(params[:id])
+        @pokemon_skill = PokemonSkill.new
+        @pokemon = Pokemon.find(@pokemon_battle.pokemon_winner_id)
+        @current_skill = @pokemon.pokemon_skills.map{ |s| s.skill_id }
+        @pokemon_skills = @pokemon.pokemon_skills.map{ |s| [s.skill.name, s.skill.id]}
+        @skills = Skill.all.select{ |s| !@current_skill.include?(s.id) && s.element_type == @pokemon.pokedex.element_type }
+        .map{|s| [s.name, s.id]}
+    end
+
+    def change_skill
+        @pokemon_battle = PokemonBattle.find(params[:id])
+        @pokemon = Pokemon.find(@pokemon_battle.pokemon_winner_id)
+        if params[:change_skill][:skill_delete_id].present?
+            @pokemon_skill = @pokemon.pokemon_skills.find_by(skill_id: params[:change_skill][:skill_delete_id])
+            @pokemon_skill.destroy
+            flash[:success] = "Skill removed from #{@pokemon.name}"
+        end
+        if params[:change_skill][:skill_add_id].present?
+            @skill = Skill.find(params[:change_skill][:skill_add_id])
+            @pokemon_skill = PokemonSkill.new(pokemon_id: @pokemon.id,skill_id: @skill.id, current_pp: @skill.max_pp)
+            if @pokemon_skill.save
+                flash[:success] = "Skill #{@skill.name} added to #{@pokemon.name}"
+                redirect_to pokemon_battle_path(@pokemon_battle)
+            else
+                @current_skill = @pokemon.pokemon_skills.map{ |s| s.skill_id }
+                @pokemon_skills = @pokemon.pokemon_skills.map{ |s| [s.skill.name, s.skill.id]}
+                @skills = Skill.all.select{ |s| !@current_skill.include?(s.id) && s.element_type == @pokemon.pokedex.element_type }
+                    .map{|s| [s.name, s.id]}
+                render :skill_change
+            end
+        else
+            flash[:success] = "No Skill added"
             redirect_to pokemon_battle_path(@pokemon_battle)
         end
     end

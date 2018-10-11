@@ -1,0 +1,34 @@
+<div class="container container-border">
+    <%= form_for :change_skill, url: change_skill_pokemon_battle_path(@pokemon_battle) do |f| %>
+        <%= render 'layouts/error_messages', object: @pokemon_skill %>
+        <div class="row form-header">
+            <% if @pokemon_skills.count == 4 %>
+                <h2 class="mx-auto">Change Skill ?</h2>
+            <% else %>
+                <h2 class="mx-auto">New Skill ?</h2>
+            <% end %>
+        </div>
+        <% if @pokemon_skills.count == 4 %>
+            <div class="form-row form-group">
+                <div class="col-2">
+                    <%= f.label :skill_delete_id, class: "col-form-label" %>
+                </div>
+                <div class="col-8">
+                    <%= f.select :skill_delete_id, @pokemon_skills, {:include_blank => true}, class: "form-control"  %>
+                </div>
+            </div>
+        <% end %>
+        <div class="form-row form-group">
+             <div class="col-2">
+                <%= f.label :skill_add_id, class: "col-form-label" %>
+            </div>
+            <div class="col-8">
+                <%= f.select :skill_add_id, @skills, {:include_blank => true}, class: "form-control"  %>
+            </div>
+        </div>
+
+        <div class="row form-footer">
+            <%= f.submit "Submit", class: "btn btn-primary btn-block", :style => 'margin-top: 14px' %>
+        </div>
+    <% end %>
+</div>

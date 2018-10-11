@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     member do
       get :evolve_confirmation
       post :evolve_confirmation, to: 'pokemon_battles#evolve'
+      get :skill_change
+      post :change_skill
     end
   end
   resources :trainers do

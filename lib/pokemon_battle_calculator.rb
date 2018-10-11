@@ -195,15 +195,4 @@ module PokemonBattleCalculator
         stats = Stats.new(rand(10..20), rand(1..5), rand(1..5), rand(1..5))
         stats
     end
-
-    def self.calculate_evolve_extra_stats(pokedex_before_evolve_id, pokedex_after_evolve_id)
-        pokedex_before_evolve = Pokedex.find(pokedex_before_evolve_id)
-        pokedex_after_evolve = Pokedex.find(pokedex_after_evolve_id)
-        health = pokedex_after_evolve.base_health_point - pokedex_before_evolve.base_health_point
-        attack = pokedex_after_evolve.base_attack - pokedex_before_evolve.base_attack
-        defence = pokedex_after_evolve.base_defence - pokedex_before_evolve.base_defence
-        speed = pokedex_after_evolve.base_speed - pokedex_before_evolve.base_speed
-        stats = Stats.new(health, attack, defence, speed)
-        stats
-    end
 end
