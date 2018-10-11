@@ -1,30 +1,32 @@
-<div class="container container-border">
-    <%= form_for @pokemon do |f| %>
-        <div class="row form-header">
-            <h2 class="mx-auto">New Pokemon</h2>
-        </div>
-        <%= render 'layouts/error_messages', object: @pokemon %>
-
-        <div class="form-row form-group">
-            <div class="col-2">
-                <%= f.label :pokedex_id, class: "col-form-label" %>
-            </div>
-            <div class="col-10">
-                <%= f.select :pokedex_id, @pokedexes, {}, class: "form-control" %>
-            </div>
-        </div>
+<div class="container">
+    <div class="card border-primary" style="margin-top: 15px; margin-bottom: 20px">
+        <%= form_for @pokemon do |f| %>
+        <div class="card-header bg-primary text-white text-center">New Pokemon</div>
         
-        <div class="form-row form-group">
-            <div class="col-2">
-                <%= f.label :name, class: "col-form-label" %>
+        <div class="card-body">
+            <%= render 'layouts/error_messages', object: @pokemon %>
+
+            <div class="form-row form-group">
+                <div class="col-2">
+                    <%= f.label :pokedex_id, class: "col-form-label" %>
+                </div>
+                <div class="col-10">
+                    <%= f.select :pokedex_id, @pokedexes, {}, class: "form-control" %>
+                </div>
             </div>
-            <div class="col-10">
-                <%= f.text_field :name, class: 'form-control' %>
+            
+            <div class="form-row form-group">
+                <div class="col-2">
+                    <%= f.label :name, class: "col-form-label" %>
+                </div>
+                <div class="col-10">
+                    <%= f.text_field :name, class: 'form-control' %>
+                </div>
             </div>
         </div>
-
-        <div class="row form-footer">
-            <%= f.submit "Create", class: "btn btn-primary btn-block", :style => 'margin-top: 14px' %>
+        <div class="row card-footer">
+            <%= f.submit "Create", class: "btn btn-primary btn-block" %>
         </div>
     <% end %>
+    </div>
 </div>

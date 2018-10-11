@@ -1,128 +1,130 @@
-<div class="container container-border">
-    <div class="row form-header">
-        <h2 class="mx-auto"><%= @pokemon.name %></h2>
-    </div>
-    <div class="row" style="padding-top: 10px">
-        <div class="col-md-5">
-            <%= image_tag @pokemon.pokedex.image_url%>
-        </div>
-        <div class="col-md-7">
-        <br><br><br>
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Level </h3>
-                </div>
-                <div class="col-md-6">
-                    <h3>: <%= @pokemon.level %></h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Health Point</h3>
-                </div>
-                <div class="col-md-6">
-                    <h3>: <%= @pokemon.current_health_point %>/ <%= @pokemon.max_health_point %></h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Attack </h3>
-                </div>
-                <div class="col-md-6">
-                    <h3>: <%= @pokemon.attack %></h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Defence </h3>
-                </div>
-                <div class="col-md-6">
-                    <h3>: <%= @pokemon.defence %></h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Speed </h3>
-                </div>
-                <div class="col-md-6">
-                    <h3>: <%= @pokemon.speed %></h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Current Experience </h3>
-                </div>
-                <div class="col-md-6">
-                    <h3>: <%= @pokemon.current_experience %></h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Pokedex </h3>
-                </div>
-                <div class="col-md-6">
-                    <h3>: <%= link_to @pokemon.pokedex.name, pokedex_path(@pokemon.pokedex) %></h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Win/Lose </h3>
-                </div>
-                <div class="col-md-6">
-                    <h3>: <%= @pokemon.wins %> / <%= @pokemon.loses %></h3>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row form-footer">
-        <div class="mx-auto" style="padding-bottom: 10px">
-            <%= link_to "Heal Pokemon", heal_pokemon_path(@pokemon), class: "btn btn-success btn-size"%>
-            <%= link_to "Edit Pokemon", edit_pokemon_path(@pokemon), class: "btn btn-primary btn-size" %>
-            <%= link_to "Delete Pokemon", pokemon_path(@pokemon), method: :delete, data: { confirm: "You sure?" } , class: "btn btn-danger btn-size" %>
-        </div>
-    </div>
-</div>
-
-<div class="container-fluid">
-    <div class="clearfix">
-        <h2>Pokemon Skills</h2>
-    </div>
-    <%= render 'layouts/error_messages', object: @pokemon_skill %>
-    <table class="table table-bordered" style= "margin-top:10px">
-        <thead>
-            <tr class="d-flex">
-                <th class="col-4 text-center">Name</th>
-                <th class="col-4 text-center">Current PP</th>
-                <th class="col-4 text-center">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @pokemon.pokemon_skills.each do |pokemon_skill| %>
-                <tr class="d-flex">
-                    <td class="col-4 text-center"><%= pokemon_skill.skill.name %></td>
-                    <td class="col-4 text-center"><%= pokemon_skill.current_pp %>/ <%= pokemon_skill.skill.max_pp %></td>
-                    <td class="col-4 text-center">
-                    <%= link_to "Delete", pokemon_pokemon_skill_path(@pokemon, pokemon_skill), method: :delete,
-                                    data: { confirm: "You sure?" }, class: "btn btn-danger"%>
-                    </td>
-                </tr>
-            <% end %>
-        </tbody>
-    </table>
-</div>
-
 <div class="container">
-    <%= form_for :pokemon_skill, url: pokemon_pokemon_skills_path(@pokemon) do |f| %>
-        <div class="form-row form-group">
-            <div class="col-2">
-                <%= f.label :skill_id, class: "col-form-label" %>
+    <div>
+        <%= link_to "Heal Pokemon", heal_pokemon_path(@pokemon), class: "btn btn-success btn-size"%>
+        <%= link_to "Edit Pokemon", edit_pokemon_path(@pokemon), class: "btn btn-primary btn-size" %>
+        <%= link_to "Delete Pokemon", pokemon_path(@pokemon), method: :delete, data: { confirm: "You sure?" } , class: "btn btn-danger btn-size" %>
+    </div>
+    <div class="card border-primary" style="margin-top: 15px; margin-bottom: 20px">
+        <div class="card-header bg-primary border-primary text-white text-center"><%= @pokemon.name %></div>
+        <div class="card-body">
+            <div class="row" style="padding-top: 10px">
+                <div class="col-md-5">
+                    <%= image_tag @pokemon.pokedex.image_url%>
+                </div>
+                <div class="col-md-7">
+                <br><br><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Level </h3>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>: <%= @pokemon.level %></h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Health Point</h3>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>: <%= @pokemon.current_health_point %>/ <%= @pokemon.max_health_point %></h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Attack </h3>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>: <%= @pokemon.attack %></h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Defence </h3>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>: <%= @pokemon.defence %></h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Speed </h3>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>: <%= @pokemon.speed %></h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Current Experience </h3>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>: <%= @pokemon.current_experience %></h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Pokedex </h3>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>: <%= link_to @pokemon.pokedex.name, pokedex_path(@pokemon.pokedex) %></h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Win/Lose </h3>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>: <%= @pokemon.wins %> / <%= @pokemon.loses %></h3>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-8">
-                <%= f.select :skill_id, @skills, {:include_blank => true}, class: "form-control"  %>
-            </div>
-            <div class="col-2">
-                <%= f.submit "Add Skill", class: "btn btn-primary btn-block" %>
+            <div class="container">
+                <div class="card border-info" style="margin-top: 15px; margin-bottom: 20px">
+                    <div class="card-header bg-info text-white">Pokemon Skills</div>
+                    <div class="card-body">
+                        <div style="margin: 10px">
+                            <%= render 'layouts/error_messages', object: @pokemon_skill %>
+                        </div>
+                        <table class="table table-hover">
+                            <thead class="thead-light">
+                            <tr class="d-flex">
+                                <th class="col-4 text-center">Name</th>
+                                <th class="col-4 text-center">Current PP</th>
+                                <th class="col-4 text-center">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <% @pokemon.pokemon_skills.each do |pokemon_skill| %>
+                                    <tr class="d-flex">
+                                        <td class="col-4 text-center"><%= pokemon_skill.skill.name %></td>
+                                        <td class="col-4 text-center"><%= pokemon_skill.current_pp %>/ <%= pokemon_skill.skill.max_pp %></td>
+                                        <td class="col-4 text-center">
+                                        <%= link_to "Delete", pokemon_pokemon_skill_path(@pokemon, pokemon_skill), method: :delete,
+                                                        data: { confirm: "You sure?" }, class: "btn btn-danger"%>
+                                        </td>
+                                    </tr>
+                                <% end %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <%= form_for :pokemon_skill, url: pokemon_pokemon_skills_path(@pokemon) do |f| %>
+                        <div class="form-row form-group">
+                            <div class="col-2">
+                                <%= f.label :skill_id, class: "col-form-label" %>
+                            </div>
+                            <div class="col-8">
+                                <%= f.select :skill_id, @skills, {:include_blank => true}, class: "form-control"  %>
+                            </div>
+                            <div class="col-2">
+                                <%= f.submit "Add Skill", class: "btn btn-primary btn-block" %>
+                            </div>
+                        </div>
+                        <% end %>
+                    </div>
+                </div>
             </div>
         </div>
-    <% end %>
+    </div>
 </div>
