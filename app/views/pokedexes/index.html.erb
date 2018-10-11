@@ -1,34 +1,38 @@
-<div class="container-fluid">
+<div class="container">
     <div>
-        <h2>Pokedexes</h2>
         <%= link_to "New Pokedex", new_pokedex_path, class: "btn btn-primary"%>
     </div>
 
-    <table class="table table-bordered" style= "margin-top:10px">
-        <thead>
-            <tr class="d-flex">
-                <th class="col-3 text-center">Name</th>
-                <th class="col-3 text-center">Element</th>
-                <th class="col-3 text-center">Image</th>
-                <th class="col-3 text-center">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @pokedexes.each do |pokedex| %>
-                <tr class="d-flex">
-                    <td class="col-3 text-center"><%= pokedex.name %></td>
-                    <td class="col-3 text-center"><%= pokedex.element_type %></td>
-                    <td class="col-3 text-center"><%= image_tag pokedex.image_url, size: "50x50" %></td>
-                    <td class="col-3 text-center">
-                    <%= link_to "Show", pokedex_path(pokedex), class: "btn btn-info"%>
-                    <%= link_to "Delete", pokedex_path(pokedex), method: :delete,
-                                    data: { confirm: "You sure?" }, class: "btn btn-danger"%>
-                    </td>
-                </tr>
-            <% end %>
-        </tbody>
-    </table>
-    <div class="clearfix">
-        <%= will_paginate @pokedexes, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer, class: "float-right" %>
+    <div class="card" style="margin-top: 15px; margin-bottom: 20px">
+        <div class="card-header bg-primary border-primary text-white">Pokedexes</div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead class="thead-light">
+                    <tr class="d-flex">
+                        <th class="col-3 text-center">Name</th>
+                        <th class="col-3 text-center">Element</th>
+                        <th class="col-3 text-center">Image</th>
+                        <th class="col-3 text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @pokedexes.each do |pokedex| %>
+                        <tr class="d-flex">
+                            <td class="col-3 text-center"><%= pokedex.name %></td>
+                            <td class="col-3 text-center"><%= pokedex.element_type %></td>
+                            <td class="col-3 text-center"><%= image_tag pokedex.image_url, size: "50x50" %></td>
+                            <td class="col-3 text-center">
+                            <%= link_to "Show", pokedex_path(pokedex), class: "btn btn-info"%>
+                            <%= link_to "Delete", pokedex_path(pokedex), method: :delete,
+                                            data: { confirm: "You sure?" }, class: "btn btn-danger"%>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+        <div class="clearfix card-footer">
+            <%= will_paginate @pokedexes, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer, class: "float-right" %>
+        </div>
     </div>
 </div>

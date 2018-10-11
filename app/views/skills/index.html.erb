@@ -1,36 +1,40 @@
-<div class="container-fluid">
+<div class="container">
     <div>
-        <h2>Skills</h2>
         <%= link_to "New Skill", new_skill_path, class: "btn btn-primary"%>
     </div>
 
-    <table class="table table-bordered" style= "margin-top:10px">
-        <thead>
-            <tr class="d-flex">
-                <th class="col-3 text-center">Name</th>
-                <th class="col-2 text-center">Power</th>
-                <th class="col-2 text-center">Max PP</th>
-                <th class="col-2 text-center">Element</th>
-                <th class="col-3 text-center">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @skills.each do |skill| %>
-                <tr class="d-flex">
-                    <td class="col-3 text-center"><%= skill.name %></td>
-                    <td class="col-2 text-center"><%= skill.power %></td>
-                    <td class="col-2 text-center"><%= skill.max_pp %></td>
-                    <td class="col-2 text-center"><%= skill.element_type %></td>
-                    <td class="col-3 text-center">
-                    <%= link_to "Show", skill_path(skill), class: "btn btn-info"%>
-                    <%= link_to "Delete", skill_path(skill), method: :delete,
-                                    data: { confirm: "You sure?" }, class: "btn btn-danger"%>
-                    </td>
-                </tr>
-            <% end %>
-        </tbody>
-    </table>
-    <div class="clearfix">
-        <%= will_paginate @skilss, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer, class: "float-right" %>
+    <div class="card" style="margin-top: 15px; margin-bottom: 20px">
+        <div class="card-header bg-primary border-primary text-white">Skills</div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead class="thead-light">
+                    <tr class="d-flex">
+                        <th class="col-3 text-center">Name</th>
+                        <th class="col-2 text-center">Power</th>
+                        <th class="col-2 text-center">Max PP</th>
+                        <th class="col-2 text-center">Element</th>
+                        <th class="col-3 text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @skills.each do |skill| %>
+                        <tr class="d-flex">
+                            <td class="col-3 text-center"><%= skill.name %></td>
+                            <td class="col-2 text-center"><%= skill.power %></td>
+                            <td class="col-2 text-center"><%= skill.max_pp %></td>
+                            <td class="col-2 text-center"><%= skill.element_type %></td>
+                            <td class="col-3 text-center">
+                            <%= link_to "Show", skill_path(skill), class: "btn btn-info"%>
+                            <%= link_to "Delete", skill_path(skill), method: :delete,
+                                            data: { confirm: "You sure?" }, class: "btn btn-danger"%>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+        <div class="clearfix card-footer">
+            <%= will_paginate @skilss, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer, class: "float-right" %>
+        </div>
     </div>
 </div>

@@ -1,38 +1,42 @@
-<div class="container-fluid">
+<div class="container">
     <div>
-        <h2>Pokemons</h2>
         <%= link_to "New Pokemon", new_pokemon_path, class: "btn btn-primary"%>
         <%= link_to "Heal All", heal_path, class: "btn btn-success"%>
     </div>
 
-    <table class="table table-bordered" style= "margin-top:10px">
-        <thead>
-            <tr class="d-flex">
-                <th class="col-2 text-center">Name</th>
-                <th class="col-3 text-center">Image</th>
-                <th class="col-2 text-center">Level</th>
-                <th class="col-2 text-center">Health</th>
-                <th class="col-3 text-center">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @pokemons.each do |pokemon| %>
-                <tr class="d-flex">
-                    <td class="col-2 text-center"><%= pokemon.name %></td>
-                    <td class="col-3 text-center"><%= image_tag pokemon.pokedex.image_url, size: "50x50" %></td>
-                    <td class="col-2 text-center"><%= pokemon.level %></td>
-                    <td class="col-2 text-center"><%= pokemon.current_health_point %>/<%= pokemon.max_health_point %></td>
-                    <td class="col-3 text-center">
-                    <%= link_to "Heal", heal_pokemon_path(pokemon), class: "btn btn-success"%>
-                    <%= link_to "Show", pokemon_path(pokemon), class: "btn btn-info"%>
-                    <%= link_to "Delete", pokemon_path(pokemon), method: :delete,
-                                    data: { confirm: "You sure?" }, class: "btn btn-danger"%>
-                    </td>
-                </tr>
-            <% end %>
-        </tbody>
-    </table>
-    <div class="clearfix">
-        <%= will_paginate @pokemons, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer, class: "float-right" %>
+    <div class="card" style="margin-top: 15px; margin-bottom: 20px">
+        <div class="card-header bg-primary border-primary text-white">Pokemons</div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead class="thead-light">
+                    <tr class="d-flex">
+                        <th class="col-2 text-center">Name</th>
+                        <th class="col-3 text-center">Image</th>
+                        <th class="col-2 text-center">Level</th>
+                        <th class="col-2 text-center">Health</th>
+                        <th class="col-3 text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @pokemons.each do |pokemon| %>
+                        <tr class="d-flex">
+                            <td class="col-2 text-center"><%= pokemon.name %></td>
+                            <td class="col-3 text-center"><%= image_tag pokemon.pokedex.image_url, size: "50x50" %></td>
+                            <td class="col-2 text-center"><%= pokemon.level %></td>
+                            <td class="col-2 text-center"><%= pokemon.current_health_point %>/<%= pokemon.max_health_point %></td>
+                            <td class="col-3 text-center">
+                            <%= link_to "Heal", heal_pokemon_path(pokemon), class: "btn btn-success"%>
+                            <%= link_to "Show", pokemon_path(pokemon), class: "btn btn-info"%>
+                            <%= link_to "Delete", pokemon_path(pokemon), method: :delete,
+                                            data: { confirm: "You sure?" }, class: "btn btn-danger"%>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+        <div class="clearfix card-footer">
+            <%= will_paginate @pokemons, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer, class: "float-right" %>
+        </div>
     </div>
 </div>

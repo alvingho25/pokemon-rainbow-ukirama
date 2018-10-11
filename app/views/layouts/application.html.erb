@@ -11,10 +11,10 @@
 
   <body>
     <%= render 'layouts/navbar' %>
-    <ol class="breadcrumb">
-      <%= render_breadcrumbs :tag => :li, :separator => '&nbsp;/&nbsp;' %>
-    </ol>
     <div class="container" style="padding-top:10px">
+      <ol class="breadcrumb">
+        <%= render_breadcrumbs :tag => :li, :separator => '&nbsp;/&nbsp;' %>
+      </ol>
       <% flash.each do |message_type, message| %>
         <div class="alert alert-<%= message_type %>"><%= message %></div>
       <% end %> 

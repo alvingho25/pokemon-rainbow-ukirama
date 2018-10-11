@@ -1,176 +1,176 @@
-<div class="container container-border">
-    <div class="row form-header">
-        <h2 class="mx-auto">Trainer</h2>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <h2>Name </h2>
-        </div>
-        <div class="col-md-6">
-            <h2>: <%= @trainer.name %></h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <h2>Email </h2>
-        </div>
-        <div class="col-md-6">
-            <h2>: <%= @trainer.email %></h2>
-        </div>
-    </div>
-    <div class="row form-footer" style="padding-bottom: 10px">
-        <div class="mx-auto">
-            <%= link_to "Edit Trainer", edit_trainer_path(@trainer), class: "btn btn-primary btn-size" %>
-            <%= link_to "Delete Trainer", trainer_path(@trainer), method: :delete, data: { confirm: "You sure?" } , class: "btn btn-danger btn-size" %>
-        </div>
-    </div>
-    
-</div>
-
-<ul class="nav nav-pills justify-content-center">
-      <li class="nav-item">
-        <%= link_to "Pokemon", trainer_path(@trainer, { name: 'pokemon'}), class: "nav-link #{@name == 'pokemon' ? 'active' : ''}" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "Statistic", trainer_path(@trainer, { name: "statistic"}), class: "nav-link #{@name == 'statistic' ? 'active' : ''}" %>
-      </li>
-  </ul>
-
-<% if @name == 'pokemon' %>
-<div class="container-fluid">
-    <div class="clearfix">
-        <h2>My Pokemon</h2>
-    </div>
-    <%= link_to "Heal All", heal_trainer_path(@trainer), class: "btn btn-success"%>
-    <%= render 'layouts/error_messages', object: @pokemon_trainer %>
-    <table class="table table-bordered" style= "margin-top:10px">
-        <thead>
-            <tr class="d-flex">
-                <th class="col-2 text-center">Name</th>
-                <th class="col-2 text-center">Image</th>
-                <th class="col-2 text-center">Win/Lose</th>
-                <th class="col-2 text-center">Win Rate</th>
-                <th class="col-2 text-center">HP</th>
-                <th class="col-2 text-center">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @trainer.pokemon_trainers.each do |pokemon_trainer| %>
-                <tr class="d-flex">
-                    <td class="col-2 text-center"><%= link_to pokemon_trainer.pokemon.name, pokemon_path(pokemon_trainer.pokemon), class: "btn btn-link" %></td>
-                    <td class="col-2 text-center"><%= image_tag pokemon_trainer.pokemon.pokedex.image_url, size: "50x50" %></td>
-                    <td class="col-2 text-center"><%= pokemon_trainer.win %> / <%= pokemon_trainer.lose %></td>
-                    <td class="col-2 text-center"><%= pokemon_trainer.win_rate %>%</td>
-                    <td class="col-2 text-center"><%= pokemon_trainer.pokemon.current_health_point %>/<%= pokemon_trainer.pokemon.max_health_point %></td>
-                    <td class="col-2 text-center">
-                    <%= link_to "Heal", heal_trainer_pokemon_path(@trainer, pokemon_trainer.pokemon), class: "btn btn-success"%>
-                    <%= link_to "Delete", trainer_pokemon_trainer_path(@trainer, pokemon_trainer), method: :delete,
-                                    data: { confirm: "You sure?" }, class: "btn btn-danger"%>
-                    </td>
-                </tr>
-            <% end %>
-        </tbody>
-    </table>
-</div>
-
 <div class="container">
-    <%= form_for :pokemon_trainer, url: trainer_pokemon_trainers_path(@trainer) do |f| %>
-        <div class="form-row form-group">
-            <div class="col-2">
-                <%= f.label :pokemon_id, class: "col-form-label" %>
+    <div>
+        <%= link_to "Edit Trainer", edit_trainer_path(@trainer), class: "btn btn-primary btn-size" %>
+        <%= link_to "Delete Trainer", trainer_path(@trainer), method: :delete, data: { confirm: "You sure?" } , class: "btn btn-danger btn-size" %>
+    </div>
+    <div class="card border-primary" style="margin-top: 15px; margin-bottom: 20px">
+        <div class="card-header bg-primary border-primary text-white text-center">Trainer</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Name </h2>
+                </div>
+                <div class="col-md-6">
+                    <h2>: <%= @trainer.name %></h2>
+                </div>
             </div>
-            <div class="col-8">
-                <%= f.select :pokemon_id, @pokemons, {}, class: "form-control"  %>
-            </div>
-            <div class="col-2">
-                <%= f.submit "Add Pokemon", class: "btn btn-primary btn-block" %>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Email </h2>
+                </div>
+                <div class="col-md-6">
+                    <h2>: <%= @trainer.email %></h2>
+                </div>
             </div>
         </div>
-    <% end %>
+        <ul class="nav nav-pills justify-content-center">
+            <li class="nav-item">
+                <%= link_to "Pokemon", trainer_path(@trainer, { name: 'pokemon'}), class: "nav-link #{@name == 'pokemon' ? 'active' : ''}" %>
+            </li>
+            <li class="nav-item">
+                <%= link_to "Statistic", trainer_path(@trainer, { name: "statistic"}), class: "nav-link #{@name == 'statistic' ? 'active' : ''}" %>
+            </li>
+        </ul>
+        <% if @name == 'pokemon' %>
+            <div class="container">
+                <div class="card border-info" style="margin-top: 15px; margin-bottom: 20px">
+                    <div class="card-header bg-info border-primary text-white">My Pokemons</div>
+                    <div class="card-body">
+                        <div style="margin: 10px">
+                            <%= link_to "Heal All", heal_trainer_path(@trainer), class: "btn btn-success"%>
+                            <%= render 'layouts/error_messages', object: @pokemon_trainer %>
+                        </div>
+                        <table class="table table-hover">
+                            <thead class="thead-light">
+                                <tr class="d-flex">
+                                    <th class="col-2 text-center">Name</th>
+                                    <th class="col-2 text-center">Image</th>
+                                    <th class="col-2 text-center">Win/Lose</th>
+                                    <th class="col-2 text-center">Win Rate</th>
+                                    <th class="col-2 text-center">HP</th>
+                                    <th class="col-2 text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% @trainer.pokemon_trainers.each do |pokemon_trainer| %>
+                                    <tr class="d-flex">
+                                        <td class="col-2 text-center"><%= link_to pokemon_trainer.pokemon.name, pokemon_path(pokemon_trainer.pokemon), class: "btn btn-link" %></td>
+                                        <td class="col-2 text-center"><%= image_tag pokemon_trainer.pokemon.pokedex.image_url, size: "50x50" %></td>
+                                        <td class="col-2 text-center"><%= pokemon_trainer.win %> / <%= pokemon_trainer.lose %></td>
+                                        <td class="col-2 text-center"><%= pokemon_trainer.win_rate %>%</td>
+                                        <td class="col-2 text-center"><%= pokemon_trainer.pokemon.current_health_point %>/<%= pokemon_trainer.pokemon.max_health_point %></td>
+                                        <td class="col-2 text-center">
+                                        <%= link_to "Heal", heal_trainer_pokemon_path(@trainer, pokemon_trainer.pokemon), class: "btn btn-success"%>
+                                        <%= link_to "Delete", trainer_pokemon_trainer_path(@trainer, pokemon_trainer), method: :delete,
+                                                        data: { confirm: "You sure?" }, class: "btn btn-danger"%>
+                                        </td>
+                                    </tr>
+                                <% end %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <%= form_for :pokemon_trainer, url: trainer_pokemon_trainers_path(@trainer) do |f| %>
+                            <div class="form-row form-group">
+                                <div class="col-2">
+                                    <%= f.label :pokemon_id, class: "col-form-label" %>
+                                </div>
+                                <div class="col-8">
+                                    <%= f.select :pokemon_id, @pokemons, {}, class: "form-control"  %>
+                                </div>
+                                <div class="col-2">
+                                    <%= f.submit "Add Pokemon", class: "btn btn-primary btn-block" %>
+                                </div>
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+
+        <% if @name == 'statistic' %>
+        <div class="container">
+            <div class="card border-info" style="margin-top: 15px; margin-bottom: 20px">
+                <div class="card-header bg-info text-white">Trainer Statistic</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 container-border">
+                            <%= column_chart @top_winner,
+                                title: "Pokemon Win Count",
+                                colors: ['blue'],
+                                library: {
+                                    yAxis: {
+                                    allowDecimals: false,
+                                    title: {
+                                        text: "Wins"
+                                    }
+                                    },
+                                    xAxis: {
+                                    title: {
+                                        text: "Pokemon Name"
+                                    }
+                                    },
+                                    tooltip: {
+                                        backgroundColor: '#FCFFC5',
+                                        borderColor: 'blue',
+                                        borderRadius: 10,
+                                        borderWidth: 3
+                                    }
+                                },
+                                messages: {empty: "Pokemon Win Count :No data"}
+                            %>
+                        </div>
+                        <div class="col-md-6 container-border">
+                            <%= bar_chart @top_loser,
+                                title: "Pokemon Lose Count",
+                                colors: ['red'],
+                                ytitle: 'Lose',
+                                xtitle: 'Pokemon Name',
+                                messages: {empty: "Pokemon Lose Count: No data"}
+                            %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 container-border">
+                            <%= line_chart @top_battle,
+                                title: "Pokemon Battle Count",
+                                colors: ['red'],
+                                ytitle: 'Used',
+                                xtitle: 'Pokemon Name',
+                                messages: {empty: "Pokemon Battle Count: No data"}
+                            %>
+                        </div>
+                        <div class="col-md-6 container-border">
+                            <%= pie_chart @win_rate,
+                                title: "Pokemon Win Rate",
+                                ytitle: 'Used',
+                                xtitle: 'Pokemon Name',
+                                suffix: '%',
+                                messages: {empty: "Pokemon Win Rate: No data"}
+                            %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 container-border">
+                            <%= column_chart @element_rate,
+                                title: "Trainer Pokemon Element Rate",
+                                colors: ['green'],
+                                xtitle: 'Element',
+                                suffix: '%',
+                                library: {
+                                    yAxis: {
+                                        title: {
+                                            text: "Count"
+                                        }
+                                    }
+                                },
+                                messages: {empty: "Trainer Pokemon Element Rate: No data"}
+                            %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% end %>
+    </div>
 </div>
-<% end %>
-
-<% if @name == 'statistic' %>
-    <div class="clearfix">
-        <h2>Trainer Statistic</h2>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 container-border">
-                <%= column_chart @top_winner,
-                title: "Pokemon Win Count",
-                colors: ['blue'],
-                library: {
-                    yAxis: {
-                    allowDecimals: false,
-                    title: {
-                        text: "Wins"
-                    }
-                    },
-                    xAxis: {
-                    title: {
-                        text: "Pokemon Name"
-                    }
-                    },
-                    tooltip: {
-                        backgroundColor: '#FCFFC5',
-                        borderColor: 'blue',
-                        borderRadius: 10,
-                        borderWidth: 3
-                    }
-                },
-                messages: {empty: "Pokemon Win Count :No data"}
-                %>
-            </div>
-            <div class="col-md-6 container-border">
-                <%= bar_chart @top_loser,
-                title: "Pokemon Lose Count",
-                colors: ['red'],
-                ytitle: 'Lose',
-                xtitle: 'Pokemon Name',
-                messages: {empty: "Pokemon Lose Count: No data"}
-                %>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 container-border">
-                <%= line_chart @top_battle,
-                title: "Pokemon Battle Count",
-                colors: ['red'],
-                ytitle: 'Used',
-                xtitle: 'Pokemon Name',
-                messages: {empty: "Pokemon Battle Count: No data"}
-                %>
-            </div>
-            <div class="col-md-6 container-border">
-                <%= pie_chart @win_rate,
-                title: "Pokemon Win Rate",
-                ytitle: 'Used',
-                xtitle: 'Pokemon Name',
-                suffix: '%',
-                messages: {empty: "Pokemon Win Rate: No data"}
-                %>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 container-border">
-                <%= column_chart @element_rate,
-                title: "Trainer Pokemon Element Rate",
-                colors: ['green'],
-                xtitle: 'Element',
-                suffix: '%',
-                library: {
-                    yAxis: {
-                        title: {
-                            text: "Count"
-                        }
-                    }
-                },
-                messages: {empty: "Trainer Pokemon Element Rate: No data"}
-                %>
-            </div>
-        </div>
-    </div>
-<% end %>
