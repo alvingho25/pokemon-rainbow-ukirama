@@ -4,6 +4,7 @@ class PokemonSkill < ApplicationRecord
 
     validate :same_skill, on: :create, if: :validate_present?
     validate :same_type, on: :create, if: :validate_present?
+    validate :four_skill, on: :create, if: :validate_present?
     validate :greater_than_max_pp
     validates :current_pp, numericality: {greater_than_or_equal_to: 0 }
 
@@ -30,6 +31,14 @@ class PokemonSkill < ApplicationRecord
         @skill = Skill.find(skill_id)
         if @pokemon.pokedex.element_type != @skill.element_type
             errors.add(:base, " Pokemon can only have skill with same element type")
+        end
+    end
+
+    def four_skill
+        @pokemon = Pokemon.find(pokemon_id)
+        @count = @pokemon.pokemon_skills.count
+        if @count == 4
+            errors.add(:base, " Pokemon can't have more than 4 skill")
         end
     end
 

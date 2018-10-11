@@ -8,8 +8,7 @@ class PokemonSkillsController < ApplicationController
                 flash[:success] = "Skill #{@skill.name} added to #{@pokemon.name}"
                 redirect_to pokemon_path(@pokemon)
             else
-                flash[:danger] = " New skill failed"
-                redirect_to pokemon_path(@pokemon)
+                redirect_to pokemon_path(@pokemon),:flash => { :danger => @pokemon_skill.errors.full_messages.join("<br>").html_safe }
             end
         else
             flash[:danger] = " Skill required"
