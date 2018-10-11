@@ -94,78 +94,98 @@
                 <div class="card-header bg-info text-white">Trainer Statistic</div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6 container-border">
-                            <%= column_chart @top_winner,
-                                title: "Pokemon Win Count",
-                                colors: ['blue'],
-                                library: {
-                                    yAxis: {
-                                    allowDecimals: false,
-                                    title: {
-                                        text: "Wins"
-                                    }
-                                    },
-                                    xAxis: {
-                                    title: {
-                                        text: "Pokemon Name"
-                                    }
-                                    },
-                                    tooltip: {
-                                        backgroundColor: '#FCFFC5',
-                                        borderColor: 'blue',
-                                        borderRadius: 10,
-                                        borderWidth: 3
-                                    }
-                                },
-                                messages: {empty: "Pokemon Win Count :No data"}
-                            %>
+                        <div class="col-md-6">
+                            <div class="card border-secondary" style="margin-top: 15px; margin-bottom: 20px">
+                                <div class="card-body">
+                                    <%= column_chart @top_winner,
+                                        title: "Pokemon Win Count",
+                                        colors: ['blue'],
+                                        library: {
+                                            yAxis: {
+                                            allowDecimals: false,
+                                            title: {
+                                                text: "Wins"
+                                            }
+                                            },
+                                            xAxis: {
+                                            title: {
+                                                text: "Pokemon Name"
+                                            }
+                                            },
+                                            tooltip: {
+                                                backgroundColor: '#FCFFC5',
+                                                borderColor: 'blue',
+                                                borderRadius: 10,
+                                                borderWidth: 3
+                                            }
+                                        },
+                                        messages: {empty: "Pokemon Win Count :No data"}
+                                    %>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6 container-border">
-                            <%= bar_chart @top_loser,
-                                title: "Pokemon Lose Count",
-                                colors: ['red'],
-                                ytitle: 'Lose',
-                                xtitle: 'Pokemon Name',
-                                messages: {empty: "Pokemon Lose Count: No data"}
-                            %>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 container-border">
-                            <%= line_chart @top_battle,
-                                title: "Pokemon Battle Count",
-                                colors: ['red'],
-                                ytitle: 'Used',
-                                xtitle: 'Pokemon Name',
-                                messages: {empty: "Pokemon Battle Count: No data"}
-                            %>
-                        </div>
-                        <div class="col-md-6 container-border">
-                            <%= pie_chart @win_rate,
-                                title: "Pokemon Win Rate",
-                                ytitle: 'Used',
-                                xtitle: 'Pokemon Name',
-                                suffix: '%',
-                                messages: {empty: "Pokemon Win Rate: No data"}
-                            %>
+                        <div class="col-md-6">
+                            <div class="card border-secondary" style="margin-top: 15px; margin-bottom: 20px">
+                                <div class="card-body">
+                                <%= bar_chart @top_loser,
+                                    title: "Pokemon Lose Count",
+                                    colors: ['red'],
+                                    ytitle: 'Lose',
+                                    xtitle: 'Pokemon Name',
+                                    messages: {empty: "Pokemon Lose Count: No data"}
+                                %>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 container-border">
-                            <%= column_chart @element_rate,
-                                title: "Trainer Pokemon Element Rate",
-                                colors: ['green'],
-                                xtitle: 'Element',
-                                suffix: '%',
-                                library: {
-                                    yAxis: {
-                                        title: {
-                                            text: "Count"
+                        <div class="col-md-6">
+                            <div class="card border-secondary" style="margin-top: 15px; margin-bottom: 20px">
+                                <div class="card-body">
+                                <%= line_chart @top_battle,
+                                    title: "Pokemon Battle Count",
+                                    colors: ['red'],
+                                    ytitle: 'Used',
+                                    xtitle: 'Pokemon Name',
+                                    messages: {empty: "Pokemon Battle Count: No data"}
+                                %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-secondary" style="margin-top: 15px; margin-bottom: 20px">
+                                <div class="card-body">
+                                <%= pie_chart @win_rate,
+                                    title: "Pokemon Win Rate",
+                                    ytitle: 'Used',
+                                    xtitle: 'Pokemon Name',
+                                    suffix: '%',
+                                    messages: {empty: "Pokemon Win Rate: No data"}
+                                %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card border-secondary" style="margin-top: 15px; margin-bottom: 20px">
+                                <div class="card-body">
+                                <%= column_chart @element_rate,
+                                    title: "Trainer Pokemon Element Rate",
+                                    colors: ['green'],
+                                    xtitle: 'Element',
+                                    suffix: '%',
+                                    library: {
+                                        yAxis: {
+                                            title: {
+                                                text: "Count"
+                                            }
                                         }
-                                    }
-                                },
-                                messages: {empty: "Trainer Pokemon Element Rate: No data"}
-                            %>
+                                    },
+                                    messages: {empty: "Trainer Pokemon Element Rate: No data"}
+                                %>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

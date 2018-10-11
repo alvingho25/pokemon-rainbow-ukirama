@@ -15,77 +15,97 @@
       <div class="card-header bg-primary border-primary text-white text-center">Element <%= @element %> Statistic</div>
       <div class="card-body">
         <div class="row">
-          <div class="col-md-6 container-border">
-            <%= column_chart @top_winner,
-              title: "Top 5 Winner #{@element} type",
-              colors: ['blue'],
-              library: {
-                yAxis: {
-                  allowDecimals: false,
-                  title: {
-                    text: "Wins"
-                  }
-                },
-                xAxis: {
-                  title: {
-                    text: "Pokemon Name"
-                  }
-                },
-                tooltip: {
-                  backgroundColor: '#FCFFC5',
-                  borderColor: 'blue',
-                  borderRadius: 10,
-                  borderWidth: 3
-                }
-              },
-              messages: {empty: "Top 5 Winner Pokemon :No data"}
-            %>
+          <div class="col-md-6">
+            <div class="card border-info" style="margin-top: 15px; margin-bottom: 20px">
+              <div class="card-body">
+                <%= column_chart @top_winner,
+                  title: "Top 5 Winner #{@element} type",
+                  colors: ['blue'],
+                  library: {
+                    yAxis: {
+                      allowDecimals: false,
+                      title: {
+                        text: "Wins"
+                      }
+                    },
+                    xAxis: {
+                      title: {
+                        text: "Pokemon Name"
+                      }
+                    },
+                    tooltip: {
+                      backgroundColor: '#FCFFC5',
+                      borderColor: 'blue',
+                      borderRadius: 10,
+                      borderWidth: 3
+                    }
+                  },
+                  messages: {empty: "Top 5 Winner Pokemon :No data"}
+                %>
+              </div>
+            </div>
           </div>
-          <div class="col-md-6 container-border">
-            <%= bar_chart @top_loser,
-              title: "Top 5 Loser #{@element} type",
-              colors: ['red'],
-              ytitle: 'Lose',
-              xtitle: 'Pokemon Name',
-              messages: {empty: "Top 5 Loser Pokemon: No data"}
-            %>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6 container-border">
-              <%= line_chart @top_skill,
-              title: "Top 5 Skill Used #{@element} type",
-              colors: ['red'],
-              ytitle: 'Used',
-              xtitle: 'Pokemon Name',
-              messages: {empty: "Top 5 Skill used: No data"},
-              library: {
-                yAxis: {
-                  reversed: true
-                }
-              }
-            %>
-          </div>
-          <div class="col-md-6 container-border">
-              <%= pie_chart @top_pokemon,
-              title: "Top 5 Pokemon Used #{@element} type",
-              ytitle: 'Used',
-              xtitle: 'Pokemon Name',
-              messages: {empty: "Top 5 Pokemon Used: No data"}
-            %>
+          <div class="col-md-6">
+            <div class="card border-info" style="margin-top: 15px; margin-bottom: 20px">
+              <div class="card-body">
+                <%= bar_chart @top_loser,
+                  title: "Top 5 Loser #{@element} type",
+                  colors: ['red'],
+                  ytitle: 'Lose',
+                  xtitle: 'Pokemon Name',
+                  messages: {empty: "Top 5 Loser Pokemon: No data"}
+                %>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="row">
-          <div class="col-md-6 container-border">
-              <%= bar_chart @top_coward,
-              title: "Top 5 Most Surrenderd Pokemon #{@element} type",
-              colors: ['green'],
-              ytitle: 'Surrender',
-              xtitle: 'Pokemon Name',
-              messages: {empty: "Top 5 Most Surrendered Pokemon: No data"}
-            %>
+          <div class="col-md-6">
+            <div class="card border-info" style="margin-top: 15px; margin-bottom: 20px">
+              <div class="card-body">
+                <%= line_chart @top_skill,
+                title: "Top 5 Skill Used #{@element} type",
+                colors: ['red'],
+                ytitle: 'Used',
+                xtitle: 'Pokemon Name',
+                messages: {empty: "Top 5 Skill used: No data"},
+                library: {
+                  yAxis: {
+                    reversed: true
+                  }
+                }
+                %>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card border-info" style="margin-top: 15px; margin-bottom: 20px">
+              <div class="card-body">
+                <%= pie_chart @top_pokemon,
+                title: "Top 5 Pokemon Used #{@element} type",
+                ytitle: 'Used',
+                xtitle: 'Pokemon Name',
+                messages: {empty: "Top 5 Pokemon Used: No data"}
+                %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card border-info" style="margin-top: 15px; margin-bottom: 20px">
+              <div class="card-body">
+                <%= bar_chart @top_coward,
+                title: "Top 5 Most Surrenderd Pokemon #{@element} type",
+                colors: ['green'],
+                ytitle: 'Surrender',
+                xtitle: 'Pokemon Name',
+                messages: {empty: "Top 5 Most Surrendered Pokemon: No data"}
+                %>
+              </div>
+            </div>
           </div>
         </div>
       </div>
