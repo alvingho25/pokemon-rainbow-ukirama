@@ -11,7 +11,12 @@ Rails.application.routes.draw do
   resources :pokemons do
     resources :pokemon_skills, only: [:create, :destroy]
   end
-  resources :pokemon_battles
+  resources :pokemon_battles do
+    member do
+      get :evolve_confirmation
+      post :evolve_confirmation, to: 'pokemon_battles#evolve'
+    end
+  end
   resources :trainers do
     resources :pokemon_trainers, only: [:create, :destroy]
   end

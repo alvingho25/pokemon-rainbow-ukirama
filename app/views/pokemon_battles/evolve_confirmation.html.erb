@@ -1,0 +1,46 @@
+<div class="container container-border">
+    <div>
+        <h2 class="text-center">Wait? <%= @pokemon.name %> are evolving!!</h2>
+    </div>
+    <div class="row" style="margin-top:10px">
+        <div class="col-4">
+            <div class="container">
+                <div class="card">
+                    <%= image_tag @pokemon.pokedex.image_url,size: "150x250", class: "card-img-top" %>
+                    <div class="card-header form-header">
+                        <h5 class="card-title text-center"><%= @pokemon.pokedex.name%></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="d-flex align-items-center h-100">
+                <h2 class="mx-auto">>>>>>>>>>>></h2>
+            </div> 
+        </div>
+        <div class="col-4">
+            <div class="container">
+                <div class="card card-height">
+                    <%= image_tag @pokemon_evolve_to.image_url,size: "150x250" , class: "card-img-top" %>
+                    <div class="card-header form-header">
+                        <h5 class="card-title text-center"><%= @pokemon_evolve_to.name%></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%= form_for :evolve_confirmation, url: evolve_confirmation_pokemon_battle_path(@pokemon_battle) do |f| %>
+        <div class="row form-header">
+            <h2 class="mx-auto">Do you want to evolve <%= @pokemon.name %>?</h2>
+        </div>
+
+        <div class="row form-footer">
+            <div class="col-md-6">
+                <%= f.submit "Yes", class: "btn btn-primary btn-block", :style => 'margin-top: 14px' %>
+            </div>
+            <div class="col-md-6">
+                <%= f.submit "Next Time", class: "btn btn-primary btn-block", :style => 'margin-top: 14px' %>
+            </div>
+        </div>
+    <% end %>
+</div>

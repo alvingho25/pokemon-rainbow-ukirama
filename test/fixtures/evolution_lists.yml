@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pokedex_from_name: MyString
+  pokedex_to_name: MyString
+  level: 1
+
+two:
+  pokedex_from_name: MyString
+  pokedex_to_name: MyString
+  level: 1

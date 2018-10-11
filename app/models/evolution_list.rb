@@ -1,0 +1,2 @@
+class EvolutionList < ApplicationRecord
+end

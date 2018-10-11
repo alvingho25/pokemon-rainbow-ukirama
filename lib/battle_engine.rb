@@ -122,6 +122,21 @@ class BattleEngine
         end
     end
 
+    def evolve?
+        @pokemon_battle.reload
+        if !@pokemon_battle.pokemon_winner_id.nil?
+            @pokemon_winner = Pokemon.find(@pokemon_battle.pokemon_winner_id)
+            if EvolutionList.exists?(pokedex_from_name: @pokemon_winner.pokedex.name)
+                @evolve_to = EvolutionList.find_by(pokedex_from_name: @pokemon_winner.pokedex.name)
+                @level = @evolve_to.level
+                if @pokemon_winner.level >= @level
+                    return true
+                end
+            end
+        end
+        false
+    end
+
     private
     def leveling_up(winner)
         while PokemonBattleCalculator.level_up?(winner.level, winner.current_experience)

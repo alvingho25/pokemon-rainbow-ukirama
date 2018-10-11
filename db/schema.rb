@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_10_024156) do
+ActiveRecord::Schema.define(version: 2018_10_11_014432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "evolution_lists", force: :cascade do |t|
+    t.string "pokedex_from_name"
+    t.string "pokedex_to_name"
+    t.integer "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "pokedexes", force: :cascade do |t|
     t.string "name"
@@ -105,6 +113,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_024156) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_trainers_on_email", unique: true
   end
 
   add_foreign_key "pokemon_battle_logs", "pokemon_battles"

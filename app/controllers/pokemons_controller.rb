@@ -3,7 +3,7 @@ class PokemonsController < ApplicationController
     add_breadcrumb "Pokemons", :pokemons_path
 
     def index
-        @pokemons = Pokemon.paginate(page: params[:page], :per_page => 15)
+        @pokemons = Pokemon.paginate(page: params[:page], :per_page => 15).order(created_at: :asc)
     end
 
     def new

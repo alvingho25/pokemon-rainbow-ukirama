@@ -59,7 +59,11 @@ class PokemonBattlesController < ApplicationController
                     if @pokemon_battle.battle_type == 'vs AI' && @pokemon_battle.state == 'On Going'
                         AiEngine.my_turn(@pokemon_battle.id)
                     end
-                    redirect_to pokemon_battle_path(@pokemon_battle)
+                    if battle_engine.evolve?
+                        redirect_to evolve_confirmation_pokemon_battle_path(@pokemon_battle)
+                    else
+                        redirect_to pokemon_battle_path(@pokemon_battle)
+                    end
                 else
                     flash.now[:danger] = "Skill Not Found or Skill PP is depleted"
                     @skill1 = @pokemon_battle.pokemon1.pokemon_skills.map{ |s| [s.skill.name, s.skill_id]}
@@ -74,6 +78,44 @@ class PokemonBattlesController < ApplicationController
                 @logs = @pokemon_battle.logs
                 render 'show'
             end
+        end
+    end
+
+    def evolve_confirmation
+        @pokemon_battle = PokemonBattle.find(params[:id])
+        if !@pokemon_battle.pokemon_winner_id.nil?
+            @pokemon = Pokemon.find(@pokemon_battle.pokemon_winner_id)
+            if EvolutionList.exists?(pokedex_from_name: @pokemon.pokedex.name)
+                @evolve_to = EvolutionList.find_by(pokedex_from_name: @pokemon.pokedex.name)
+                @pokemon_evolve_to = Pokedex.find_by(name: @evolve_to.pokedex_to_name)
+            end
+        else
+            redirect_to pokemon_battle_path(@pokemon_battle)
+        end
+    end
+
+    def evolve
+        @pokemon_battle = PokemonBattle.find(params[:id])
+        if params[:commit] == 'Yes'
+            if !@pokemon_battle.pokemon_winner_id.nil?
+                @pokemon = Pokemon.find(@pokemon_battle.pokemon_winner_id)
+                if EvolutionList.exists?(pokedex_from_name: @pokemon.pokedex.name)
+                    @evolve_to = EvolutionList.find_by(pokedex_from_name: @pokemon.pokedex.name)
+                    @pokemon_evolve_to = Pokedex.find_by(name: @evolve_to.pokedex_to_name)
+                    stats = PokemonBattleCalculator.calculate_evolve_extra_stats(@pokemon.pokedex_id, @pokemon_evolve_to.id)
+                    @pokemon.pokedex_id = @pokemon_evolve_to.id
+                    @pokemon.max_health_point = @pokemon.max_health_point + stats.health
+                    @pokemon.attack = @pokemon.attack + stats.attack
+                    @pokemon.defence = @pokemon.defence + stats.defence
+                    @pokemon.speed = @pokemon.speed + stats.speed
+                    @pokemon.save!
+                    redirect_to pokemon_battle_path(@pokemon_battle)
+                end
+            else
+                redirect_to pokemon_battle_path(@pokemon_battle)
+            end
+        else
+            redirect_to pokemon_battle_path(@pokemon_battle)
         end
     end
 
