@@ -1,47 +1,50 @@
-<%= form_for @skill do |f| %>
-    <div class="row form-header">
-        <h2 class="mx-auto"><%= yield(:title) %></h2>
-    </div>
-    <%= render 'layouts/error_messages', object: @skill %>
+<div class="card border-primary" style="margin-top: 15px; margin-bottom: 20px">
+    <%= form_for @skill do |f| %>
+    <div class="card-header bg-primary text-white text-center"><%= yield(:title) %></div>
 
-    <div class="form-row form-group">
-        <div class="col-2">
-            <%= f.label :name, class: "col-form-label" %>
+    <div class="card-body">
+        <%= render 'layouts/error_messages', object: @skill %>
+
+        <div class="form-row form-group">
+            <div class="col-2">
+                <%= f.label :name, class: "col-form-label" %>
+            </div>
+            <div class="col-10">
+                <%= f.text_field :name, class: 'form-control' %>
+            </div>
         </div>
-        <div class="col-10">
-            <%= f.text_field :name, class: 'form-control' %>
+
+        <div class="form-row form-group">
+            <div class="col-2">
+                <%= f.label :power, class: "col-form-label" %>
+            </div>
+            <div class="col-10">
+                <%= f.number_field :power, class: 'form-control' %>
+            </div>
+        </div>
+
+        <div class="form-row form-group">
+            <div class="col-2">
+                <%= f.label :max_pp, class: "col-form-label" %>
+            </div>
+            <div class="col-10">
+                <%= f.number_field :max_pp, class: 'form-control' %>
+            </div>
+        </div>
+
+        <div class="form-row form-group">
+            <div class="col-2">
+                <%= f.label :element_type, class: "col-form-label" %>
+            </div>
+            <div class="col-10">
+                <%= f.select :element_type, ['normal', 'fire', 'fighting', 'water', 'flying', 'grass', 'poison', 'electric', 
+                    'ground', 'psychic', 'rock', 'ice', 'bug', 'dragon', 'ghost', 'dark', 'steel', 'fairy'], {}, class: "form-control" %>
+            </div>
         </div>
     </div>
 
-    <div class="form-row form-group">
-        <div class="col-2">
-            <%= f.label :power, class: "col-form-label" %>
-        </div>
-        <div class="col-10">
-            <%= f.number_field :power, class: 'form-control' %>
-        </div>
-    </div>
-
-    <div class="form-row form-group">
-        <div class="col-2">
-            <%= f.label :max_pp, class: "col-form-label" %>
-        </div>
-        <div class="col-10">
-            <%= f.number_field :max_pp, class: 'form-control' %>
-        </div>
-    </div>
-
-    <div class="form-row form-group">
-        <div class="col-2">
-            <%= f.label :element_type, class: "col-form-label" %>
-        </div>
-        <div class="col-10">
-            <%= f.select :element_type, ['normal', 'fire', 'fighting', 'water', 'flying', 'grass', 'poison', 'electric', 
-                'ground', 'psychic', 'rock', 'ice', 'bug', 'dragon', 'ghost', 'dark', 'steel', 'fairy'], {}, class: "form-control" %>
-        </div>
-    </div>
-
-    <div class="row form-footer">
+    <div class="row card-footer">
         <%= f.submit yield(:button), class: "btn btn-primary btn-block", :style => 'margin-top: 14px' %>
     </div>
 <% end %>
+</div>
